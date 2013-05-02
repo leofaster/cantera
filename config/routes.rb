@@ -1,8 +1,14 @@
 Current::Application.routes.draw do
-  devise_for :usuarios
+  get "/index" => 'estaticos#index', :as => "index"
+  get "/servicios" => 'estaticos#servicios', :as => "servicios"
+  get "/ubicanos" => 'estaticos#ubicanos', :as => "ubicanos"
+  get "/sobre_nosotros" => 'estaticos#sobre_nosotros', :as => "sobre_nosotros"
+
+  devise_for :usuarios, :path => '', :path_names => { :sign_in => "iniciar_sesion", :sign_out => "cerrar_sesion", :sign_up => "registrar" }
 
   get "welcome/index"
-root :to => 'welcome#index'
+  root :to => 'estaticos#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

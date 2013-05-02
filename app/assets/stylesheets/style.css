@@ -1,0 +1,214 @@
+@charset "utf-8";
+
+/* BASIC RESET */
+ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input{margin:0; padding:0;}
+
+
+
+/* HTML ELEMENTS */
+body { background-color:#1b2940; font:62.5% "gotham Light"; letter-spacing:1; }
+
+/* COMMON CLASSES */
+.break { clear:both; }
+
+/* HEADER */
+#header { height:600px; }
+.headerimg { background-position: center top; background-repeat: no-repeat; width:100%; height:600px; position:absolute; }
+
+/* Identification */
+#nav-outer { 
+	height: 110px;
+	padding-bottom: 30px;
+	padding-top: 20px;
+	position: relative;
+	top: 50px;
+	background-image:url("headerbg.png"); 
+}
+
+#Identification { 
+	height:100px; 
+	width:960px; 
+	margin:0 auto; 
+	background-position:top left; 
+	background-repeat:no-repeat;
+}
+
+/* SEARCH */
+#search { background-color:#051733; float:right; width:220px; padding:10px; }
+#searchtxt { padding:3px; width:150px; }
+#searchbtn { border:1px solid #eee !important; background-color:#CD2B3A; color:#eee; padding:3px; margin-left:5px; }
+
+/* MENU */
+#menu { position:relative; top:85px; }
+#menu ul { list-style:none; }
+#menu ul li { display:inline; font-variant:small-caps; font-size:12px; }
+#menu ul li a { color:white; text-decoration:none; font-weight:bold; padding-right:20px; }
+#menu ul li a:hover { text-decoration:underline; }
+
+/* HEADER TEXT */
+#headertxt { width:960px; margin:0 auto; clear:both; position:relative; top:74px; }
+#firstline { 
+	background-image:url("textbg.png"); 
+	color:#67c700; 
+	font-size:40px; 
+	padding:4px 13px 7px; 
+	float:left; 
+	display:block; 
+}
+
+#secondline { 
+	background-image:url("textbg.png"); 
+	color:#000; 
+	text-decoration:none; 
+	font-size:20px; 
+	padding:0 13px 10px; 
+	float:left; 
+	display:block; 
+	clear:both; 
+}
+
+.pictured { 
+	background-color:#203a54; 
+	color:#FFF; font-size:12px; 
+	padding:9px 16px; 
+	text-transform:uppercase; 
+	float:left; display:block; 
+	clear:both; margin-top:10px; 
+}
+.pictured a { font-size:16px; font-style:italic; letter-spacing:0; text-transform:none; color:#FFF; text-decoration:none; }
+.pictured a:hover { text-decoration:underline; }
+
+/* CONTROLS */
+.btn1 { height:32px; width:32px; float:left; cursor:pointer; }
+#back { background-image:url("btn_back.png"); }
+#next { background-image:url("btn_next.png"); }
+#control { background-image:url("btn_pause.png"); }
+
+/* HEADER HAVIGATION */
+#headernav-outer { position:relative; top:400px; margin:0 auto; width:960px; }
+#headernav { padding-left:864px; }
+
+/* CONTENT */
+#content { color:#575757;}
+#content p {  
+	padding:10px 20px; 
+	font-size:13px;
+	margin:0 auto;
+}
+#content p a { text-decoration:none; color:#CD2B3A; }
+#content p a:hover { text-decoration:underline; color:#7F000C; }
+
+#loginArea {
+	height: 30px;
+	width: 100%;
+	background-color: #000;
+	float:left;
+	padding: 10px;
+}
+#Identification #desc {
+	float: left;
+	height: 100px;
+	width: 250px;
+	padding-left: 30px;
+}
+
+#Identification h1 {
+	float:left;
+	//font-family:Gotham-Medium;
+	font-size:26px;
+	color: #67c700;
+}
+
+#Identification .separador {
+	background-color: #CCC;
+	margin-top:-20px;
+	height: 120px;
+	width: 2px;
+	float:left;
+}
+#navegation{
+	padding:5px 5px;  
+	width:960px; 
+	margin:0 auto; 
+	background-color:#CCC;
+	height:250px;
+	//font-family:Gotham-Light;
+	font-size:16px;
+}
+
+#navegation .bloque {
+	float: left;
+	height: 220px;
+	width: 296px;
+	margin:10px;
+}
+
+#footer {
+	background-color: #000;
+	height: 40px;
+	width:960px;
+	margin-bottom:5px; 
+	float:left;
+	padding-bottom:5px;
+}
+
+.separador2 {
+	border-right-width: 2px;
+	border-right-style: solid;
+	border-right-color: #FFF;
+	height: 190px;
+	width:2px;
+	float:left;
+	margin-top:10px;
+}
+#redesSociales {
+	float: right;
+	height: 100%;
+	width: 260px;
+	list-style: none;
+	margin-top: -10px;
+}
+#redesSociales a {
+	//font-family: Gotham-Light;
+	font-size: 14px;
+	color: #FFF;
+	text-decoration: none;
+	padding:5px;
+}
+#redesSociales a img {
+	margin-bottom: -10px;
+	padding-top: 0px;
+}
+#loginArea #autenticacion {
+	float: right;
+	width: 300px;
+	height: 25px;
+	margin-right:90px;
+}
+
+.bloque .irA a {
+	color: #FFF;
+	text-decoration: none;
+	float: right;
+	margin-left: 60px;
+}
+#navegation #contenido {
+	background-color:#E2E2E2;
+	float: left;
+	height: 600px;
+	width: 100%;
+}
+#contenido #commentForm {
+	padding-left: 50px;
+	width:90%;
+	height:500px;
+	overflow:auto;
+	
+}#escrito #marcomapa {
+	background-color: #666;
+	height: 350px;
+	width: 425px;
+	margin: 20px;
+	float: right;
+	padding: 5px;
+}

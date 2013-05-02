@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<link rel="shortcut icon" href="assets/img/favicon.ico">
+
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
+
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+<script>
+  $(function() {
+    $( "#accordion" ).accordion(
+	{heightStyle: "content"}
+	);
+  });
+  </script>
+
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :method => 'delete', :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            
+            <div id="redesSociales">
+        		<a href="#">
+              <%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="#">
+                  <%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="#">
+                  <%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="#">
+                  <%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:870px" id="navegation">
+ 		<div id="contenido">
+        	<div id="escrito" style="padding:20px; text-align:justify">
+        	<legend> Servicios </legend>
+            
+            <div id="accordion">
+              <h3>Reserva Tu Cancha</h3>
+              <div>
+                
+                <h2> Descripción de la Reserva </h2>
+                <%= image_tag "http://www.culturarecreacionydeporte.gov.co/portal/sites/default/files/2688/cancha1.jpg", :width => "150px", :style => "margin: 5px 0px 5px 5px;float: right; " %>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non quam vitae metus dictum aliquam mattis non ante. Phasellus nec risus nulla, vel sodales nibh. Integer at ante turpis, eget luctus elit. Quisque consectetur dapibus purus, et pretium elit tempor non. Vivamus lobortis arcu in risus iaculis rhoncus. In imperdiet, eros eget mattis porta, lectus nisl suscipit ipsum, vel commodo neque nisl a leo. Mauris ullamcorper consequat velit. Nunc sed nulla ut metus ultricies fermentum. Integer tristique dolor vel nibh vehicula dapibus.</p>
+
+				<p>Donec convallis rhoncus augue, nec fringilla elit tempor vestibulum. Curabitur in dui lorem. Maecenas aliquet consectetur auctor. Curabitur adipiscing viverra erat, vestibulum adipiscing justo semper eget. Fusce sollicitudin congue orci in sodales. Nullam porttitor porta fermentum. Nam scelerisque, turpis nec ultrices gravida, velit augue pharetra mi, blandit dictum eros felis sit amet neque. Nullam egestas neque non elit cursus et auctor arcu bibendum. Donec velit nisi, auctor sit amet aliquet vel, tristique nec purus.</p>
+
+				
+                <br />
+
+                <h4> Para Reservar Click en el Botón</h4>
+                <center>
+                <a style="padding: 10px" href="Reserva.html" class="btn btn-success">Reserva Tu Cancha</a> 
+              	</center>
+              </div>
+              <h3>Futboladas</h3>
+              <div>
+              	<h2> Descripción de la Futbolada </h2>
+                <%= image_tag "http://pablonayib.files.wordpress.com/2011/03/futbol3.jpg", :width => "150px", :style => "margin: 5px 0px 5px 5px;float: right; " %>
+                <p>Sed suscipit scelerisque lacinia. Ut venenatis consectetur risus, scelerisque consequat lectus venenatis id. Morbi laoreet ipsum ac justo tristique eu dictum dolor viverra. Quisque justo augue, accumsan ac hendrerit ac, rhoncus id sapien. Nam scelerisque, tortor ac aliquam venenatis, tortor quam eleifend turpis, ut viverra erat orci id purus. Praesent in dui nec turpis euismod scelerisque. Ut nulla felis, fringilla tincidunt dapibus et, iaculis ac nisl. In vel tellus in lacus aliquam tempor ut quis nibh. Ut id eros justo. Nam vel velit massa. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vivamus urna est, ultrices non ultricies ut, sollicitudin ut sem.</p>
+
+				<p>Fusce sem velit, lacinia sed vulputate a, tristique in erat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam vitae neque quis metus ultrices faucibus. Suspendisse non turpis velit. Vivamus at volutpat eros. Proin pulvinar magna in neque hendrerit sit amet varius tortor congue. Aliquam non dolor risus, quis congue augue. Donec non metus eget turpis rutrum feugiat posuere ac urna. Quisque odio odio, consectetur quis porttitor ut, eleifend quis quam. Duis vitae tempor lorem. Vestibulum lacinia, nibh et bibendum semper, sem dui ullamcorper ante, at rhoncus tellus justo ac risus.</p>
+
+                <h4> Para Reservar Click en el Botón</h4>
+                <center>
+                <a style="padding: 10px" href="Futbolada.html" class="btn btn-success">Reserva Para tu Futbolada</a> 
+              	</center>
+              </div>
+              <h3>Ligas</h3>
+              <div>
+              	<center>
+                    <h2>
+                    Sección Proximamente Disponible 
+                    </h2>
+              	</center>
+              </div>
+             
+            </div>
+
+			
+
+        	</div>
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#67c700; text-align:center"> Servicios </h2>
+            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#0CF; text-align:center"> Ubicación </h2>
+          <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/ubicanos"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="coloR:#FFF; text-align:center"> Sobre Nosotros </h2>
+            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros">
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<h3>Nelson Medina y Alfredo Gallardo - Espacio para publicidad</h3>
+            
+    	</div>
+    </div>
+</div>
+
+
+</body>
+</html>

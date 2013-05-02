@@ -20,7 +20,7 @@ en:
       confirmation_instructions:
         subject: "Confirmation instructions"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Instrucciones para reiniciar la contraseña"
       unlock_instructions:
         subject: "Unlock Instructions"
     omniauth_callbacks:
@@ -57,3 +57,4 @@ en:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+

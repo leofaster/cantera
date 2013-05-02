@@ -1,12 +1,190 @@
-<h2>Forgot your password?</h2>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<link rel="shortcut icon" href="assets/favicon.ico">
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
 
-  <div><%= f.submit "Send me reset password instructions" %></div>
-<% end %>
+<script>
+    $(document).ready(function(){    
+        $("#commentForm").validate({
+            rules: {
+                password: {required: true,minlength: 5},
+                confirm_password: {	required: true,	minlength: 5, equalTo: "#password"},
+                email: { required: false, email: true },
+				nombre: {required: true},
+				apellido: {required: true},
+				cedula: {required: true, digits: true},
+				telefono: {required: false, digits: true}
+            },
+				
+            messages: {
+				nombre: { 
+					required: "Por favor introduzca su nombre"
+				},
+				cedula: { 
+					required: "Por favor introduzca su cédula de identidad",
+					digits: "Este campo solo posee números"
+				},
+				apellido: { 
+					required: "Por favor introduzca su Apellido"
+				},
+                password: {
+                    required: "Por favor introduzca una contraseña",
+                    minlength: "La contraseña debe tener mínimo 5 caracteres"
+                },
+                confirm_password: {
+                    required: "Por favor introduzca una contraseña",
+                    minlength: "La contraseña debe tener mínimo 5 caracteres",
+                    equalTo: "Las contraseñas no coinciden"
+                },
+                email: { 
+                    required: "Por favor introduzca un correo electrónico", 
+                    email: "la sintaxis de correo debe ser correcta" 
+				},
+				telefono: {
+					digits: "Este campo solo posee números"	
+				}
+				
+            } 
+			 
+        });
+    });
+</script>
 
-<%= render "devise/shared/links" %>
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :method => 'delete', :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="index.html"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            
+            <div id="redesSociales">
+        		<a href="#">
+              <%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="#">
+                  <%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="#">
+                  <%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="#">
+                  <%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:670px" id="navegation">
+ 		<div id="contenido" style="height:400px">
+        	<div id="escrito" style="padding:20px; text-align:justify"> 
+                    <legend> Recuperar Contraseña </legend>
+                    <p> Para reestablecer su contraseña, por favor, indique su correo electrónico y continue con los pasos indicados. </p>
+                    
+                    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }, :class => "form-horizontal", :style => "padding-left:200px; padding-top:50px") do |f| %>
+						<div class="control-group">
+	                        <label class="control-label" for="inputEmail">Correo Electrónico</label>
+	                        <div class="controls">
+	                          <%= f.email_field :email, :id => "inputEmail", :placeholder => "Correo Electrónico" %>
+	                        </div>
+	                    </div>
+                    
+                      <div class="control-group">
+                        <div class="controls">
+                          <%= f.submit "Reestablecer", :class => "btn" %>
+                        </div>
+                      </div>  
+					<% end %>
+             </div>
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#67c700; text-align:center"> Servicios </h2>
+        	<%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#0CF; text-align:center"> Ubicación </h2>
+        	<%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/ubicanos"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="coloR:#FFF; text-align:center"> Sobre Nosotros </h2>
+        	<%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros"> 
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<h3>Nelson Medina y Alfredo Gallardo - Espacio para publicidad</h3>
+            
+    	</div>
+    </div>
+</div>
+
+
+</body>
+</html>
