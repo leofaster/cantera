@@ -1,0 +1,31 @@
+<h1>Listing reservas</h1>
+
+<table>
+  <tr>
+    <th>Usuario</th>
+    <th>Tipo cancha</th>
+    <th>Fecha ingreso</th>
+    <th>Hora inicio</th>
+    <th>Cant horas</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reservas.each do |reserva| %>
+  <tr>
+    <td><%= reserva.usuario_id %></td>
+    <td><%= reserva.tipo_cancha %></td>
+    <td><%= reserva.fecha_ingreso %></td>
+    <td><%= reserva.hora_inicio %></td>
+    <td><%= reserva.cant_horas %></td>
+    <td><%= link_to 'Show', reserva %></td>
+    <td><%= link_to 'Edit', edit_reserva_path(reserva) %></td>
+    <td><%= link_to 'Destroy', reserva, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reserva', new_reserva_path %>

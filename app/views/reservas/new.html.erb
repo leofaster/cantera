@@ -1,0 +1,754 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<%= favicon_link_tag 'favicon.ico' %>
+
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
+
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
+
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Alfredo Gallardo y Nelson Medina">
+<meta charset="UTF-8">
+<script type="text/javascript">
+			$( document ).ready(function() {
+				//var date = new Date();
+				//var dateText = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
+				//cargarHoras(dateText);
+
+				$( "#reservar" ).click(function() {
+					$("#horaA").val('');
+					$("#horaB").val('');
+					$("#horaC").val('');
+
+					$("#canthorasA").val('');
+					$("#canthorasB").val('');
+					$("#canthorasC").val('');
+
+					var seleccionesA = $( "#HoraReservaA").val() || [];
+					var seleccionesB = $( "#HoraReservaB").val() || [];
+					var seleccionesC = $( "#HoraReservaC").val() || [];
+
+					if($.isEmptyObject(seleccionesA) && $.isEmptyObject(seleccionesB) && $.isEmptyObject(seleccionesC)) {
+						$( "#canchaA" ).hide();
+						$( "#canchaB" ).hide();
+						$( "#canchaC" ).hide();
+						$( "#aviso" ).show();
+                                                $("#confirmar").hide();
+					}
+                                        else {
+                                                $("#confirmar").show();
+						$( "#aviso" ).hide();
+						$( "#canchaA" ).hide();
+						$( "#canchaB" ).hide();
+						$( "#canchaC" ).hide();
+
+						if(!$.isEmptyObject(seleccionesA)) {
+							$("#horaA").val(seleccionesA[0]);
+							$("#canthorasA").val(seleccionesA.length);
+							$( "#canchaA" ).show();
+						}
+
+						if(!$.isEmptyObject(seleccionesB)) {
+							$("#horaB").val(seleccionesB[0]);
+							$("#canthorasB").val(seleccionesB.length);
+							$( "#canchaB" ).show();
+						}
+
+						if(!$.isEmptyObject(seleccionesC)) {
+							$("#horaC").val(seleccionesC[0]);
+							$("#canthorasC").val(seleccionesC.length);
+							$( "#canchaC" ).show();
+						}
+					}
+				});
+
+				$( "#confirmar" ).click(function() {
+					var horaAux;
+					var cantAux;
+
+					if (!$('#horaA').val() == '') {
+					    horaAux = $('#horaA').val();
+					    cantAux = $('#canthorasA').val();
+    					    $('#reserva_cancha_hora_inicio_a').val(horaAux);
+					    $('#reservacancha_cant_horas_a').val(cantAux);
+
+					    $("#new_reserva").append("<input id='reserva_cancha_cancha_id_a' name='reserva_cancha[1][cancha_id]' type='hidden' value='1'><input id='reserva_cancha_hora_inicio_a' name='reserva_cancha[1][hora_ini]' type='hidden' value='" + horaAux + "'><input id='reserva_cancha_cant_horas_a' name='reserva_cancha[1][cant_horas]' type='hidden' value='" + cantAux + "'>");
+					}
+
+					if (!$('#horaB').val() == '') {
+					    horaAux = $('#horaB').val();
+					    cantAux = $('#canthorasB').val();
+					    $("#new_reserva").append("<input id='reserva_cancha_cancha_id_b' name='reserva_cancha[2][cancha_id]' type='hidden' value='2'><input id='reserva_cancha_hora_inicio_b' name='reserva_cancha[2][hora_ini]' type='hidden' value='" + horaAux + "'><input id='reserva_cancha_cant_horas_b' name='reserva_cancha[2][cant_horas]' type='hidden' value='" + cantAux + "'>");
+					}
+
+					if (!$('#horaC').val() == '') {
+					    horaAux = $('#horaC').val();
+					    cantAux = $('#canthorasC').val();
+					    $("#new_reserva").append("<input id='reserva_cancha_cancha_id_c' name='reserva_cancha[7][cancha_id]' type='hidden' value='7'><input id='reserva_cancha_hora_inicio_c' name='reserva_cancha[7][hora_ini]' type='hidden' value='" + horaAux + "'><input id='reserva_cancha_cant_horas_c' name='reserva_cancha[7][cant_horas]' type='hidden' value='" + cantAux + "'>");
+					}
+
+					document.forms["new_reserva"].submit();
+				});
+			});
+
+			
+			$(function()
+			{
+							
+			 // Datepicker1:
+				$('#datepicker').datepicker({
+					showButtonPanel: true,
+					onSelect: function(dateText){
+						cargarHoras(dateText);
+					}
+				});
+				
+				$("#HoraReserva").change(function () {
+				  var str = "";
+				  $("#HoraReserva option:selected").each(function () {
+						str += $(this).text() + " ";
+					  });
+				   document.getElementById("hora").value = str;
+				})
+				.trigger('change')
+				
+				$("#HorasDeReserva").change(function () {
+				  var str = "";
+				  $("#HorasDeReserva option:selected").each(function () {
+						str += $(this).text() + " ";
+					  });
+				   document.getElementById("Canthora").value = str;
+				})
+				.trigger('change')
+	/*			
+				
+				//Confirmaciones:
+				$('#checkboxA').click(function(){
+					if ($("#checkboxA").is(':checked')) {
+						$("#canchaA").removeClass("hidden");
+					}
+					else
+					{
+						$("#canchaA").addClass("hidden");
+						
+					}
+					
+					if ($("#checkboxA").is(':checked') || $("#checkboxB").is(':checked')) {
+						$("#aviso").addClass("hidden");
+					}
+					else{
+						$("#aviso").removeClass("hidden");
+					}
+				})
+				
+
+*/
+			});
+			
+
+
+				$.datepicker.regional['es'] = {
+						closeText: 'Cerrar',
+						prevText: '&#x3c;Ant',
+						nextText: 'Sig&#x3e;',
+						currentText: 'Hoy',
+						monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+						'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+						monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+						'Jul','Ago','Sep','Oct','Nov','Dic'],
+						dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+						dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+						dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+						weekHeader: 'Sm',
+						dateFormat: 'yy-mm-dd',
+						firstDay: 1,
+						isRTL: false,
+						showMonthAfterYear: false,
+						minDate: 0,
+						yearSuffix: ''};
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+
+				function cargarHoras(dateText) {
+					dateArray = dateText.split('-');
+					document.getElementById("fecha").value = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+
+					$('#reserva_fecha_ingreso').val(dateText);
+
+                                	$.get("/servicios/horas_inicio_reserva.json", { "fecha_ingreso": dateText },
+                                        	function(data){
+							//Cancha A
+
+							primeroA = undefined;
+					   		ultimoA = undefined;
+							anteriorA = undefined;
+
+							$('#HoraReservaA').empty();						
+
+                                                	for(var i = 0;i < data[0].length;i++) {
+								$('#HoraReservaA').append('<option value="' + data[0][i][1] + '">'+ data[0][i][0] + '</option>')
+                                                	}
+
+							//Cancha B
+
+							primeroB = undefined;
+					   		ultimoB = undefined;
+							anteriorB = undefined;
+
+							$('#HoraReservaB').empty();						
+
+                                                	for(var i = 0;i < data[0].length;i++) {
+								$('#HoraReservaB').append('<option value="' + data[0][i][1] + '">'+ data[0][i][0] + '</option>')
+                                                	}
+
+							//Cancha C
+
+							primeroC = undefined;
+					   		ultimoC = undefined;
+							anteriorC = undefined;
+
+							$('#HoraReservaC').empty();						
+
+                                                	for(var i = 0;i < data[0].length;i++) {
+								$('#HoraReservaC').append('<option value="' + data[0][i][1] + '">'+ data[0][i][0] + '</option>')
+                                                	}
+                                          	}, "json");
+				}
+			
+			</script>
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <% if es_admin? %>
+            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
+          <% elsif es_cli? %>
+            <%= link_to 'Mi Cuenta', gestion_path, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            <div id="redesSociales">
+        		<a href="http://www.facebook.com/lacantera.futsal">
+					<%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="https://twitter.com/canterafutsal">
+					<%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="http://instagram.com/canterafutsal#">
+					<%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
+					<%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:870px" id="navegation">
+ 		<div id="contenido">
+        	<div id="escrito" style="padding:20px; text-align:justify">
+            	
+                <legend> Reserva tu cancha </legend>
+					<p> Reservar tu cancha es muy sencillo, solo debes seguir lo siguientes pasos: </p>
+                    
+                        <ul>
+                            <li type="square"> Primero, debes seleccionar en el calendario la fecha para cual deseas hacer la reserva. </li>
+                            <li type="square"> Segundo, seleeciona el bloque de horas que desees en las canchas que desees. </li>
+                            <li type="square"> Por último, verifica los datos selecionados luego de presionar el boton enviar.</li>
+                        </ul>
+                        
+                        <div id="reservaSist"> 	
+                            	
+                        		
+ <!-- CAMBIOS DESDE AQUÍ -->
+				<%= form_for(@reserva, :html => {}) do |f| %>
+					<div id="datepicker" class="span6" style=" padding-left:10px; padding-top:40px; width: 25em">  
+					</div>
+		  			<%= f.hidden_field :fecha_ingreso %>
+                                
+                                    <div id="interno" style="margin-top:20px">
+                    			    <div class="bloqueCancha">
+                                                <label> Horas para cancha A: </label>
+                                                <select name="reservaA" class="span2" id="HoraReservaA" multiple="multiple" size="6">
+
+                                                  </select>
+                                            </div>
+                                              
+                                            <div class="bloqueCancha">  
+                                                <label> Horas para cancha B: </label>
+                                                <select name="reservaB" class="span2" id="HoraReservaB" multiple="multiple" size="6">
+
+                                                  </select>
+                                            </div>
+                                            
+                                            <div class="bloqueCancha">  
+                                                <label> Horas para cancha C: </label>
+                                                <select name="reservaC" class="span2" id="HoraReservaC" multiple="multiple" size="6">
+     
+                                                  </select>
+                                            </div>
+
+	<script type="text/javascript">
+	   	// Funciona para seleccion multiple de CanchaA
+	   
+	   	// Globales de Cancha A
+	        var primeroA;
+	   	var ultimoA;
+		var anteriorA;
+
+	   	// Globales de Cancha B
+      	        var primeroB;
+	   	var ultimoB;
+		var anteriorB;
+
+	   	// Globales de Cancha C
+      	        var primeroC;
+	   	var ultimoC;
+		var anteriorC;
+
+		// Funcion cuando el mouse sea presionado
+		$('body').on('mousedown','#HoraReservaC[multiple] option',function () {
+			var aux;
+			
+			// Si ya estaba seleccionado Limpiar seleccion									
+			if ($(this).prop("selected")){
+				$(this).prop("selected", false);
+				primeroC=undefined;
+				ultimoC=undefined;
+				$("#HoraReservaC[multiple] option").each(function() {
+					$(this).prop("selected",false);				
+				})
+			}
+			// Caso de seleccion
+			else{
+				// Primera Seleccion	
+				if (primeroC == undefined){
+					$(this).prop("selected", true); 
+					aux = ($(this).val());
+					primeroC = parseInt(aux);
+
+				}
+				// Siguientes selecciones
+				else{
+					aux = ($(this).val());
+					ultimoC = parseInt(aux);
+					
+					var mini;
+					var maxi; 
+					mini=Math.min(primeroC,ultimoC);
+					maxi=Math.max(primeroC,ultimoC);
+
+
+					// Selecciona del menor al mayor
+						$("#HoraReservaC[multiple] option").each(function() {
+							
+							
+							if ($(this).val() >= mini ){				
+							
+								if(anteriorC == undefined) {
+									anteriorC = parseInt($(this).val());
+								}
+								else{
+								
+									// Evaluar si son consecutivos para luego seleccionar en caso afirmativo, caso contrario, ERROR
+									if(($(this).val() == anteriorC + 1) || ($(this).val() == anteriorC - 1) ){
+										if ( $(this).val() == maxi ) {
+
+										  
+										  	// Selecciona si el intervalo esta permitido
+										  	$("#HoraReservaC[multiple] option").each(function() {
+												if ($(this).val() >= mini){	
+													$(this).prop("selected",true);	
+																						
+													if ( $(this).val() == maxi ) {
+														
+											 			return false;
+													}
+												}
+												
+											})
+										  	anteriorC = undefined;
+											return false;
+										   
+										}
+										else{
+											anteriorC = parseInt($(this).val());
+										}
+									}
+									else{
+										anteriorC = undefined;
+										alert("No es permitido el intervalo seleccionado, deben ser intervalos consecutivos");
+										return false;
+									}
+								}
+							}
+							
+						
+						})
+					
+				}
+				
+			}
+             	return false;    
+            });
+
+		$('body').on('mousedown','#HoraReservaB[multiple] option',function () {
+			var aux;
+			
+			// Si ya estaba seleccionado Limpiar seleccion									
+			if ($(this).prop("selected")){
+				$(this).prop("selected", false);
+				primeroB=undefined;
+				ultimoB=undefined;
+				$("#HoraReservaB[multiple] option").each(function() {
+					$(this).prop("selected",false);				
+				})
+			}
+			// Caso de seleccion
+			else{
+				// Primera Seleccion	
+				if (primeroB == undefined){
+					$(this).prop("selected", true); 
+					aux = ($(this).val());
+					primeroB = parseInt(aux);
+
+				}
+				// Siguientes selecciones
+				else{
+					aux = ($(this).val());
+					ultimoB = parseInt(aux);
+					
+					var mini;
+					var maxi; 
+					mini=Math.min(primeroB,ultimoB);
+					maxi=Math.max(primeroB,ultimoB);
+
+
+					// Selecciona del menor al mayor
+						$("#HoraReservaB[multiple] option").each(function() {
+							
+							
+							if ($(this).val() >= mini ){				
+							
+								if(anteriorB == undefined) {
+									anteriorB = parseInt($(this).val());
+								}
+								else{
+								
+									// Evaluar si son consecutivos para luego seleccionar en caso afirmativo, caso contrario, ERROR
+									if(($(this).val() == anteriorB + 1) || ($(this).val() == anteriorB - 1) ){
+										if ( $(this).val() == maxi ) {
+
+										  
+										  	// Selecciona si el intervalo esta permitido
+										  	$("#HoraReservaB[multiple] option").each(function() {
+												if ($(this).val() >= mini){	
+													$(this).prop("selected",true);	
+																						
+													if ( $(this).val() == maxi ) {
+														
+											 			return false;
+													}
+												}
+												
+											})
+										  	anteriorB = undefined;
+											return false;
+										   
+										}
+										else{
+											anteriorB = parseInt($(this).val());
+										}
+									}
+									else{
+										anteriorB = undefined;
+										alert("No es permitido el intervalo seleccionado, deben ser intervalos consecutivos");
+										return false;
+									}
+								}
+							}
+							
+						
+						})
+					
+				}
+				
+			}
+             	return false;    
+            });
+
+		$('body').on('mousedown','#HoraReservaA[multiple] option',function () {
+			var aux;
+			
+			// Si ya estaba seleccionado Limpiar seleccion									
+			if ($(this).prop("selected")){
+				$(this).prop("selected", false);
+				primeroA=undefined;
+				ultimoA=undefined;
+				$("#HoraReservaA[multiple] option").each(function() {
+					$(this).prop("selected",false);				
+				})
+			}
+			// Caso de seleccion
+			else{
+				// Primera Seleccion	
+				if (primeroA == undefined){
+					$(this).prop("selected", true); 
+					aux = ($(this).val());
+					primeroA = parseInt(aux);
+
+				}
+				// Siguientes selecciones
+				else{
+					aux = ($(this).val());
+					ultimoA = parseInt(aux);
+					
+					var mini;
+					var maxi; 
+					mini=Math.min(primeroA,ultimoA);
+					maxi=Math.max(primeroA,ultimoA);
+
+
+					// Selecciona del menor al mayor
+						$("#HoraReservaA[multiple] option").each(function() {
+							
+							
+							if ($(this).val() >= mini ){				
+							
+								if(anteriorA == undefined) {
+									anteriorA = parseInt($(this).val());
+								}
+								else{
+								
+									// Evaluar si son consecutivos para luego seleccionar en caso afirmativo, caso contrario, ERROR
+									if(($(this).val() == anteriorA + 1) || ($(this).val() == anteriorA - 1) ){
+										if ( $(this).val() == maxi ) {
+
+										  
+										  	// Selecciona si el intervalo esta permitido
+										  	$("#HoraReservaA[multiple] option").each(function() {
+												if ($(this).val() >= mini){	
+													$(this).prop("selected",true);	
+																						
+													if ( $(this).val() == maxi ) {
+														
+											 			return false;
+													}
+												}
+												
+											})
+										  	anteriorA = undefined;
+											return false;
+										   
+										}
+										else{
+											anteriorA = parseInt($(this).val());
+										}
+									}
+									else{
+										anteriorA = undefined;
+										alert("No es permitido el intervalo seleccionado, deben ser intervalos consecutivos");
+										return false;
+									}
+								}
+							}
+							
+						
+						})
+					
+				}
+				
+			}
+             	return false;    
+            });
+			
+			
+	</script>
+                                           
+<!-- CAMBIOS HASTA AQUÍ -->
+
+                                            <!-- Boton para soltar la confirmación -->
+
+                                            <a id="reservar" style="position:relative;right:100px;top:260px;" href="#myModal" role="button" class="btn" data-toggle="modal" >Reservar</a>
+
+        
+				<% end %>
+									
+										<div id="myModal" class="modal hide fade">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h3>Confirmar Reservación</h3>
+											</div>
+											<div class="modal-body">
+											
+												<div id="confirmacion" style="color:#090">
+						    <h5>Fecha de la Reserva:</h5>
+                                                        <input type="text" id="fecha" readonly placeholder="Fecha">
+                                                    <br />
+
+						    <div id="canchaA" class="">	
+                                                        <h5>Para la Cancha A:</h5>
+                                                        A las:
+                                                        <input type="text" id="horaA" readonly class="span1">
+                                                        Por 
+                                                        <input type="text" id="canthorasA" readonly class="span1">
+                                                        Horas.
+                                                        <br />
+                                                    </div>
+													
+                                                    <div id="canchaB" class="">
+                                                        <h5>Para la Cancha B:</h5>
+                                                        A las:
+                                                        <input type="text" id="horaB" readonly class="span1">
+                                                        Por 
+                                                        <input type="text" id="canthorasB" readonly class="span1">
+                                                        Horas.
+                                                        <br />
+                                                    </div>
+
+						    <div id="canchaC" class="">
+                                                        <h5>Para la Cancha C:</h5>
+                                                        A las:
+                                                        <input type="text" id="horaC" readonly class="span1">
+                                                        Por 
+                                                        <input type="text" id="canthorasC" readonly class="span1">
+                                                        Horas.
+                                                        <br />
+                                                    </div>
+                                                    
+                                                    <div id="aviso" class="">
+							<center><h5> Debe Realizar una reserva antes </h5></center>
+						    </div>
+												
+												</div>
+											</div>
+										<div class="modal-footer">
+										
+										<a id="confirmar"  href="#" class="btn btn-success" >Confirmar</a>
+                                        <a id="atras"  href="#" class="btn btn-inverse" data-dismiss="modal" >Atrás</a>
+										
+										</div>
+										
+							</div>
+							
+							
+						</div>
+				
+            </div>
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
+            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
+            <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/ubicacion"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
+            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros">
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
+            
+            <div id="derInfo">
+                <div id="publicidad" style=" width:98%; height: 73px">
+                
+                
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+        
+        	
+    	</div>
+    </div>
+</div>
+
+<div id="myModalError" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Error</h3>
+	</div>
+	<div class="modal-body">
+		<div id="Error" style="color:#090">           
+            <center><h5 id="avisoError"></h5></center>
+		</div>
+	</div>
+       <div class="modal-footer">
+       </div>
+</div>
+
+</body>
+</html>

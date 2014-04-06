@@ -1,0 +1,30 @@
+<%= link_to 'Nueva Cancha', new_cancha_path, :class => "btn btn-success", :style => "color:white;" %>
+                    <% if !@canchas.nil? %>
+                    <%= paginate @canchas, :params => {:tab => "canchas"}, :param_name => :page_canchas %>
+                    <table id="canchas_table" class="table table-hover">
+                    <thead>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Monto por Hora</th>
+                          <% if current_usuario.tipo == 'admin' %>
+                            <th>Editar</th>
+                            <th>Borrar</th>
+                          <% end %>
+                    </thead>
+                    <tbody>
+                            <% @canchas.each do |f| %>
+                                    <tr>
+                                            <td><%= f.id %></td>
+                                            <td><%= f.nombre %></td>
+                                            <td><%= f.monto %></td>
+                                          <% if current_usuario.tipo == 'admin' %>
+					    <td><%= link_to 'Editar', edit_cancha_path(f), :class => "btn btn-success", :style => "color:white;" %></td>
+				    	    <td><%= link_to 'Borrar', cancha_borrar_path(f), :method => 'delete', :class => "btn btn-danger", :style => "color:white;" %></td>
+                                          <% end %>
+                                    </tr>
+                            <% end %>
+                    </tbody>
+                    </table>
+                    <% else %>
+                      No hay datos para mostrar
+                    <% end %>

@@ -1,0 +1,26 @@
+<%= form_for @usuario, :as => :usuario, :url => gestion_usuarios_path(@usuario), :method => :post, :html => { :id => "commentForm" } do |f| %>
+<fieldset >
+                    <legend><%= action_name == 'edit' ? "Editar" : "Crear" %> Usuario</legend>
+
+                    <label style="color:red">Nombre del usuario:</label>
+                    <%= f.text_field :nombre, :placeholder => "Nombre", :class => "span3" %>
+                    <%= f.text_field :apellido, :placeholder => "Apellido", :class => "span3" %>
+                    <label style="color:red">Cédula de Identidad:</label>
+                    <%= f.text_field :cedula, :placeholder => "CI", :class => "span3" %>
+                    <label style="color:red">Correo electrónico:</label>
+                    <%= f.text_field :email, :placeholder => "Correo", :class => "span3", :id => "email" %>
+                    <label>Número telefónico:</label>
+                    <%= f.text_field :telefono, :placeholder => "Teléfono", :class => "span3", :id => "telefono" %>
+
+                 <% if current_usuario.tipo == 'admin' %>
+                    <label>Tipo de Usuario:</label>
+                    <%= f.select :tipo, options_for_select([["Administrador", "admin"], ["Operador", "ope"], ["Cliente", "cli"]],@usuario.tipo) %>
+                 <% end %>
+
+
+                    <center>
+                        <%= f.submit action_name == 'edit' ? "Editar" : "Crear", :disable_with => 'Espere...', :class => "btn" %>
+                    </center>
+             	</fieldset>
+<% end %>
+

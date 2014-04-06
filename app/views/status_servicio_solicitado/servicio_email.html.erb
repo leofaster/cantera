@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Estimado <%= @user.nombre %> <%= @user.apellido %></h1>
+    <p>
+      Su solicitud se ha realizado con éxito, el ID de su <%= @servicio.class.name == 'Futbolada' ? '' : 'Reserva' %>
+      es: <%= @servicio.id %>.<br/>
+    </p>
+    <p>
+      No olvide que puede ver sus Futboladas o Reservaciones a tráves del siguiente link: <%= @url %>.
+    </p>
+    <p>Gracias</p>
+  </body>
+</html>

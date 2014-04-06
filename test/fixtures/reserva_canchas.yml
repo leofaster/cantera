@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  reserva_id: 1
+  cancha_id: 1
+  monto: 1.5
+
+two:
+  reserva_id: 1
+  cancha_id: 1
+  monto: 1.5

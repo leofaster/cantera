@@ -2,6 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  date:
+    formats:
+      default: "%d/%m/%Y"
   activerecord:
     attributes:
       usuario:
@@ -11,5 +14,15 @@ en:
         usuario:
           attributes:
             email:
-              taken: "el email ya existe"
-
+              blank: "El correo debe estar presente"
+              taken: "El correo suminitrado ya existe"
+            nombre:
+              blank: "El nombre debe estar presente"
+            apellido:
+              blank: "El apellido debe estar presente"
+            cedula:
+              blank: "La cedula debe estar presente"
+            telefono:
+              blank: "El telefono debe estar presente"
+            password_confirmation: 
+              blank: "Tu contraseña debe estar presente"

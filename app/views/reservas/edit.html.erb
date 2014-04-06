@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<%= favicon_link_tag 'favicon.ico' %>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
+
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
+
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+
+<!-- Agregado para el panel de texto -->
+<%= javascript_include_tag "jquery-te-1.0.5.min.js" %>
+<%= stylesheet_link_tag "jquery-te-Style.css" %>
+
+<script>
+      function alMenos1Cancha(value, element){
+        return false;
+      }
+
+      $(document).ready(function(){
+        $.validator.addMethod("alMenos1Cancha", 
+          function(value, element) {
+            return $("#inlineCheckbox1").is(':checked') || $("#inlineCheckbox2").is(':checked');
+          },"Debe elegir al menos una cancha."
+         );
+        
+          $("#commentForm").validate({
+            errorLabelContainer: "#errores",
+            wrapper: "h4",
+
+            rules: {
+                'futbolada[fecha_ingreso]': {required: true, },
+                'futbolada[cancha_b]': {alMenos1Cancha: true, },                
+            },
+				
+            messages: {
+				'futbolada[fecha_ingreso]': { 
+					required: "Por favor introduzca la fecha"
+				}
+            } 
+			 
+        });
+
+                          $("#HoraReserva2").change(function(){
+					  var fecha = document.getElementById("datepicker").value;
+					  var hora = $("#HoraReserva2 option:selected").attr("selected", "selected").val();
+				$.get("/servicios/horas_cant_reserva.json", { "fecha_ingreso": fecha, "hora_ingreso": hora, "tipo_cancha": "b" },
+                                             function(data){
+                                                $('#HorasDeReserva2').find('option').remove()
+
+                                                for(var i = 0;i < data.length;i++) {
+							$('#HorasDeReserva2').append('<option value="'+ data[i][1] +'">'+ data[i][0] +'</option>');
+						}
+                                          }, "json");
+
+                                var cancha = $('#reserva_tipo_cancha').val();
+
+                                $.get("/servicios/precio.json", { "nombre": cancha },function(data) {
+       		                    var monto = Number(data) * Number($('#HorasDeReserva2 option:selected').val());
+                                    $('#monto').val(monto);
+                                }, "json");
+                          });
+
+                          $('#reserva_tipo_cancha').change(function(){
+                               var cancha = $('#reserva_tipo_cancha').val();
+
+                                $.get("/servicios/precio.json", { "nombre": cancha },function(data) {
+       		                    var monto = Number(data) * Number($('#HorasDeReserva2 option:selected').val());
+                                    $('#monto').val(monto);
+                                }, "json");
+                           });
+
+                           $('#HorasDeReserva2').change(function(){
+                                var cancha = $('#reserva_tipo_cancha').val();
+
+                                $.get("/servicios/precio.json", { "nombre": cancha },function(data) {
+       		                    var monto = Number(data) * Number($('#HorasDeReserva2 option:selected').val());
+                                    $('#monto').val(monto);
+                                }, "json");
+                            });
+
+        <% if @reserva.errors.count != 0 %>
+                <% @reserva.errors.each do |atr| %>
+                   <% @reserva.errors[atr].each do |msg| %>
+	               $("#avisoError").append("<p>- <%= msg %></p>");
+	           <% end %>
+                <% end %>
+                $("#myModalError").modal('show');
+           <% end %>
+    });
+
+  $(function() {
+    $( "#datepicker" ).datepicker({
+        onSelect: function(dateText){
+                                          $.get("/servicios/horas_inicio_reserva.json", { "fecha_ingreso": dateText, "tipo_cancha": "a" },
+                                             function(data){
+                                                $('#HoraReserva2').find('option').remove();
+                                                $('#HorasDeReserva2').find('option').remove();
+                                                if(data[0].length != 0) {
+      						  for(var i = 0;i < data[0].length;i++) {
+							$('#HoraReserva2').append('<option value="'+ data[0][i][1] +'">'+ data[0][i][0] +'</option>');
+					   	  }
+
+                                                  for(var i = 0;i < data[1].length;i++) {
+							$('#HorasDeReserva2').append('<option value="'+ data[1][i][1] +'">'+ data[1][i][0] +'</option>');
+						  }
+                                                }
+                                                else {
+              					  $('#noDisponibleAviso').text('Para la cancha A no hay horas disponibles para el día seleccionado');
+                                                  $("#myModalNoDisponible").modal('show');
+                                                }
+
+                                var cancha = $('#reserva_tipo_cancha').val();
+
+                                $.get("/servicios/precio.json", { "nombre": cancha },function(data) {
+       		                    var monto = Number(data) * Number($('#HorasDeReserva2 option:selected').val());
+                                    $('#monto').val(monto);
+                                }, "json");
+                                          }, "json");
+					}
+    });
+  });
+ 
+        $.datepicker.regional['es'] = {
+                closeText: 'Cerrar',
+                prevText: '&#x3c;Ant',
+                nextText: 'Sig&#x3e;',
+                currentText: 'Hoy',
+                monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+                'Jul','Ago','Sep','Oct','Nov','Dic'],
+                dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+                dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+		
+
+</script>
+
+
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <% if es_admin? || es_ope? %>
+            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
+          <% elsif es_cli? %>
+            <%= link_to 'Mi Cuenta', gestion_path, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            <div id="redesSociales">
+        		<a href="http://www.facebook.com/lacantera.futsal">
+					<%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="https://twitter.com/canterafutsal">
+					<%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="http://instagram.com/canterafutsal#">
+					<%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
+					<%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:870px" id="navegation">
+ 		<div id="contenido">
+        <br />
+            <p> A continuación la reservación de canchas para una Futbolada.</p> 
+            <p> Se les invita a acercarse a nuestras instalaciones para recibir mayor información y asesoría sobre nuestras canchas. </p>
+            <%= form_for(@reserva, :html => { :id => "commentForm"}) do |f| %>
+            	<fieldset >
+                    <legend> Editar Reserva </legend>
+                    <label> Usuario: </label>
+                    <%= @reserva.usuario.nombre %> <%= @reserva.usuario.apellido %><br />
+                    <label> Estatus: </label>
+                    <%= f.select :cant_horas, options_for_select([["reservado", "reservado"], ["pagado", "pagado"]]), {}, :id => "status", :class => "span2" %><br />
+
+                   	 <label >Fecha de tu Reserva:<br />
+                            <%= f.text_field :fecha_ingreso, :id => "datepicker" %>
+                     <label >Cancha a reservar:</label>
+                       <%= f.select :tipo_cancha, options_for_select([["a", "a"], ["b", "b"]]), {}, :class => "span2" %>
+                     
+                    <label> Ingrese la hora a reservar: </label>
+                    <%= f.select :hora_inicio, options_for_select([["8:00am", "8"], ["9:00am", "9"], ["10:00am", "10"], ["11:00am", "11"], ["12:00m", "12"], ["1:00pm", "13"], ["2:00pm", "14"], ["3:00pm", "15"], ["4:00pm", "16"], ["5:00pm", "17"], ["6:00pm", "18"], ["7:00pm", "19"], ["8:00pm", "20"], ["9:00pm", "21"], ["10:00pm", "22"]],@reserva.hora_inicio), {}, :id => "HoraReserva2", :class => "span2" %>
+									
+		    <br />
+		    <label> Ingrese la cantidad de horas: </label>
+<%= f.select :cant_horas, options_for_select([["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"]],@reserva.cant_horas), {}, :id => "HorasDeReserva2", :class => "span1" %>
+  		     <br />
+                     <label >Monto:<br />
+                     <%= f.text_field :monto, :id => "monto", :disabled => true %>
+                     <br />
+                         
+                    
+                    <center>
+                        <button type="submit" class="btn">Editar</button>
+                    </center>
+             	</fieldset>
+             <% end %>
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
+            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
+            <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/ubicacion"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
+            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros"> 
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
+            
+            <div id="derInfo">
+                <div id="publicidad" style=" width:98%; height: 73px">
+                
+                
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+        
+        	
+    	</div>
+    </div>
+</div>
+
+<div id="myModalError" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Error</h3>
+	</div>
+	<div class="modal-body">
+		<div id="Error" style="color:#090">           
+            <center><h5 id="avisoError"></h5></center>
+		</div>
+	</div>
+       <div class="modal-footer">
+       </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<h1>Listing futboladas</h1>
+
+<table>
+  <tr>
+    <th>Usuario</th>
+    <th>Fecha ingreso</th>
+    <th>Cancha a</th>
+    <th>Cancha b</th>
+    <th>Hora inicio</th>
+    <th>Cant horas</th>
+    <th>Descripcion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @futboladas.each do |futbolada| %>
+  <tr>
+    <td><%= futbolada.usuario_id %></td>
+    <td><%= futbolada.fecha_ingreso %></td>
+    <td><%= futbolada.cancha_a %></td>
+    <td><%= futbolada.cancha_b %></td>
+    <td><%= futbolada.hora_inicio %></td>
+    <td><%= futbolada.cant_horas %></td>
+    <td><%= futbolada.descripcion %></td>
+    <td><%= link_to 'Show', futbolada %></td>
+    <td><%= link_to 'Edit', edit_futbolada_path(futbolada) %></td>
+    <td><%= link_to 'Destroy', futbolada, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Futbolada', new_futbolada_path %>

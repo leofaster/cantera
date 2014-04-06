@@ -1,5 +1,5 @@
-<p>Welcome <%= @email %>!</p>
+<p>La Cantera Futsal te da la Bienvenida <%= @resource.nombre %> <%= @resource.apellido %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>Tu puedes confirmar tu cuenta a tráves del enlace que verás a continuación:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p><%= link_to 'Confirmar mi cuenta', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>

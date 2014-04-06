@@ -1,0 +1,50 @@
+<% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+    <%= link_to 'Nueva Futbolada', new_futbolada_path, :class => "btn btn-success", :style => "color:white;" %>
+<% end %>
+                    <% if !@futboladas.nil? %>
+                    <%= paginate @futboladas, :params => {:tab => "futboladas"}, :param_name => :page_futboladas %>
+		    <table id="futboladas_table" class="table table-hover">
+		    <thead>
+			    <th>ID</th>
+			    <th>Cliente</th>
+			    <th>Fecha</th>
+			    <th>Hora Inicio</th>
+			    <th>Cantidad de Horas</th>
+			    <th>¿Cancha A?</th>
+			    <th>¿Cancha B?</th>
+                          <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+			    <th>Editar</th>
+                          <% end %>
+                          <% if current_usuario.tipo == 'cli' %>
+			    <th>Mostrar</th>
+                          <% end %>
+                          <% if current_usuario.tipo == 'admin' %>
+			    <th>Borrar</th>
+                          <% end %>
+		    </thead>
+  		    <tbody>
+			    <% @futboladas.each do |f| %>
+				    <tr>
+					    <td><%= f.id %></td>
+					    <td><%= f.usuario.nombre %> <%= f.usuario.apellido %></td>
+					    <td><%= f.fecha_ingreso %></td>
+					    <td><%= f.hora_inicio %></td>
+					    <td><%= f.cant_horas %></td>
+					    <td><%= f.cancha_a ? "si" : "no" %></td>
+					    <td><%= f.cancha_b ? "si" : "no" %></td>
+                          <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+					    <td><%= link_to 'Editar', edit_futbolada_path(f), :class => "btn btn-success", :style => "color:white;" %></td>
+                          <% end %>
+                          <% if current_usuario.tipo == 'cli' %>
+                                            <td><%= link_to 'Mostrar', futbolada_path(f), :class => "btn btn-success", :style => "color:white;" %></td>
+                          <% end %>
+                                          <% if current_usuario.tipo == 'admin' %>
+				    	    <td><%= link_to 'Borrar', futbolada_borrar_path(f), :method => 'delete', data: { confirm: '¿Estás seguro?' }, :class => "btn btn-danger", :style => "color:white;" %></td>
+                                          <% end %>
+				    </tr>
+			    <% end %>
+		    </tbody>
+		    </table>
+                    <% else %>
+                      No hay datos para mostrar
+                    <% end %>

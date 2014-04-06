@@ -1,0 +1,42 @@
+<%= link_to 'Nuevo Usuario', new_usuario_path, :class => "btn btn-success", :style => "color:white;" %>
+                <% if !@usuarios.nil? %>
+                <%= paginate @usuarios, :params => {:tab => "usuarios"}, :param_name => :page_usuarios %>
+		<table id="usuarios_table" class="table table-hover">
+		<thead>
+			<th>Nombre</th>
+			<th>Cédula</th>
+			<th>Correo elecctrónico</th>
+			<th>Número telefónico</th>
+			<th>Tipo</th>
+			<th>Editar</th>
+                      <% if current_usuario.tipo == 'admin' %>
+			<th>Borrar</th>
+                      <% end %>
+		</thead>
+		<tbody>
+			<% @usuarios.each do |u| %>
+                                 <% if u.tipo == 'admin'%>
+                                     <% @tipo = 'administrador' %>
+                                 <% elsif u.tipo == 'ope' %>
+                                     <% @tipo = 'operador' %>
+                                 <% elsif u.tipo == 'cli'%>
+                                     <% @tipo = 'cliente' %>
+                                 <% end %>
+
+				<tr>
+					<td><%= u.nombre %> <%= u.apellido %></td>
+					<td><%= u.cedula %></td>
+					<td><%= u.email %></td>
+					<td><%= u.telefono %></td>
+					<td><%= @tipo %></td>
+					<td><%= link_to 'Editar', edit_usuario_path(u), :class => "btn btn-success", :style => "color:white;" %></td>
+                                      <% if current_usuario.tipo == 'admin' %>
+					<td><%= link_to 'Borrar', usuario_borrar_path(u), :method => 'delete', data: { confirm: '¿Estás seguro?' }, :class => "btn btn-danger", :style => "color:white;" %></td>
+                                      <% end %>
+				</tr>
+			<% end %>
+		</tbody>
+		</table>
+                <% else %>
+                  No hay datos para mostrar
+                <% end %>

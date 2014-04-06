@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  usuario_id: 1
+  fecha_ingreso: 2013-05-11
+  cancha_a: false
+  cancha_b: false
+  hora_inicio: MyString
+  cant_horas: 1
+  descripcion: MyText
+
+two:
+  usuario_id: 1
+  fecha_ingreso: 2013-05-11
+  cancha_a: false
+  cancha_b: false
+  hora_inicio: MyString
+  cant_horas: 1
+  descripcion: MyText

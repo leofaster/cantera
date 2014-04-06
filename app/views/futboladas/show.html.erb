@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<%= favicon_link_tag 'favicon.ico' %>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
+
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
+
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+
+<!-- Agregado para el panel de texto -->
+<%= javascript_include_tag "jquery-te-1.0.5.min.js" %>
+<%= stylesheet_link_tag "jquery-te-Style.css" %>
+
+<script>
+</script>
+
+
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <% if es_admin? || es_ope? %>
+            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
+          <% elsif es_cli? %>
+            <%= link_to 'Mi Cuenta', gestion_path, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            <div id="redesSociales">
+        		<a href="http://www.facebook.com/lacantera.futsal">
+					<%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="https://twitter.com/canterafutsal">
+					<%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="http://instagram.com/canterafutsal#">
+					<%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
+					<%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:870px" id="navegation">
+ 		<div id="contenido">
+        <br />
+            <p> A continuación la reservación de canchas para una Futbolada.</p> 
+            <p> Se les invita a acercarse a nuestras instalaciones para recibir mayor información y asesoría sobre nuestras canchas. </p>
+<div id="informacionFutbolada" style="height: 420px;padding:40px;overflow:auto;">
+            	<fieldset >
+                    <legend> Futbolada </legend>
+                     <label> Cliente: </label>
+                     <%= @futbolada.usuario.nombre %> <%= @futbolada.usuario.apellido %><br /><br />
+                     <label> Número de Reserva: </label>
+                     <%= @futbolada.numero %><br /><br />
+                     <label> Estatus: </label>
+                     <%= @futbolada.status %><br /><br />
+                     <label >Canchas Reservadas:</label>
+                        Cancha A: <%= @futbolada.cancha_a ? "si" : "no" %><br />
+                        Cancha B: <%= @futbolada.cancha_b ? "si" : "no" %><br />
+                        Cancha C: <%= @futbolada.cancha_c ? "si" : "no" %><br /><br />
+
+                    <label >Fecha de tu Futbolada:</label>
+                    <%= @futbolada.fecha_ingreso %><br /><br />
+
+                    <label> Ingrese la hora a reservar: </label>
+                    <%= @futbolada.hora_inicio %><br /><br />
+									
+		    <label> Ingrese la cantidad de horas: </label>
+                     <%= @futbolada.cant_horas %><br /><br />
+                    <label> Descripción: </label> 
+                    <%= @futbolada.descripcion %>
+             	</fieldset>
+</div>
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
+            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
+            <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/ubicacion"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
+            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros"> 
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
+            
+            <div id="derInfo">
+                <div id="publicidad" style=" width:98%; height: 73px">
+                
+                
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+        
+        	
+    	</div>
+    </div>
+</div>
+
+<div id="myModalError" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Error</h3>
+	</div>
+	<div class="modal-body">
+		<div id="Error" style="color:#090">           
+            <center><h5 id="avisoError"></h5></center>
+		</div>
+	</div>
+       <div class="modal-footer">
+       </div>
+</div>
+
+</body>
+</html>

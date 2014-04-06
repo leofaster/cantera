@@ -1,0 +1,39 @@
+<% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+    <%= link_to 'Nueva Reserva', new_reserva_path, :class => "btn btn-success", :style => "color:white;" %>
+<% end %>
+                    <% if !@reservas.nil? %>
+                    <%= paginate @reservas, :params => {:tab => "reservas"}, :param_name => :page_reservas %>
+		    <table id="reservas_table" class="table table-hover">
+		    <thead>
+			    <th>ID</th>
+			    <th>Cliente</th>
+			    <th>Fecha</th>
+			    <th>Tipo de Cancha</th>
+			    <th>Hora Inicio</th>
+			    <th>Cantidad de Horas</th>
+                          <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+			    <th>Editar</th>
+                          <% end %>
+                          <% if current_usuario.tipo == 'admin' %>
+			    <th>Borrar</th>
+                          <% end %>
+		    </thead>
+  		    <tbody>
+			    <% @reservas.each do |f| %>
+				    <tr>
+					    <td><%= f.id %></td>
+					    <td><%= f.usuario.nombre %> <%= f.usuario.apellido %></td>
+                          <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+					    <td><%= link_to 'Editar', edit_reserva_path(f), :class => "btn btn-success", :style => "color:white;" %></td>
+                          <% end %>
+                                          <% if current_usuario.tipo == 'admin' %>
+				    	    <td><%= link_to 'Borrar', reserva_borrar_path(f), :method => 'delete', data: { confirm: '¿Estás seguro?' }, :class => "btn btn-danger", :style => "color:white;" %></td>
+                                          <% end %>
+
+				    </tr>
+			    <% end %>
+		    </tbody>
+		    </table>
+                    <% else %>
+                      No hay datos para mostrar
+                    <% end %>

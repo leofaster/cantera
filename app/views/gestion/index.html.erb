@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>La Cantera FutSal</title>
+<%= favicon_link_tag 'favicon.ico' %>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
+
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+<script>
+$(function() {
+    $( "#tabs" ).tabs();
+
+    <% if @tab == 'reservas' %>
+    $( "#tabs" ).tabs( "option", "active", 1 );
+    <% elsif @tab == 'usuarios' %>
+    $( "#tabs" ).tabs( "option", "active", 2 );
+    <% elsif @tab == 'canchas' %>
+    $( "#tabs" ).tabs( "option", "active", 3 );    
+    <% else %>
+    $( "#tabs" ).tabs( "option", "active", 0 );
+    <% end %>
+
+	$("#tabs").css("height", "500px");
+	$("#tabs").css("overflow", "auto");
+  });
+
+$(document).ready(function(){
+  <% if !@exito.nil? %>
+      $("#avisoError").append("<p>- <%= @exito %></p>");
+      $("#myModalError").modal('show');
+<% end %>
+});
+</script>
+
+<meta name="description" content="Reserva tu cancha de futbol online">
+<meta name="keywords" content="FutSal, Futbol, reserva, online">
+<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+
+<div id="loginArea">
+	<div id="autenticacion">
+        <% if usuario_signed_in? %>
+          <% if es_admin? || es_ope? %>
+            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
+          <% elsif es_cli? %>
+            <%= link_to 'Mi Cuenta', gestion_path, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
+        <% else %>
+            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
+          <a href="/registrar" class="btn btn-success">Registro</a>
+        <% end %>
+    </div>
+</div>
+
+
+
+<div style="height:210px" id="header">
+    <!-- Identificación de la empresa -->
+	<div id="nav-outer">
+		<div id="Identification">
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+            <div class="separador"></div>
+            <div id="desc">
+            	<h1> La Cantera FutSal </h1>
+            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
+            </div>
+            <div id="redesSociales">
+        		<a href="http://www.facebook.com/lacantera.futsal">
+					<%= image_tag "facebook-48.png" %>
+   					Facebook
+ 				</a>
+                <a href="https://twitter.com/canterafutsal">
+					<%= image_tag "twitter-48.png" %>
+   					Twitter
+ 				</a>
+                <a href="http://instagram.com/canterafutsal#">
+					<%= image_tag "instagram-48.png" %>
+   					Instagram
+ 				</a>
+                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
+					<%= image_tag "youtube-48.png" %>
+   					Youtube
+ 				</a>   
+        	</div>
+		</div>     
+	</div>
+	
+</div>
+<div style="height:700px" id="content">
+	<div style="height:870px" id="navegation">
+ 		<div id="contenido">
+        	<div id="escrito" style="padding:20px;">
+             <legend> Gestión 
+		<%= link_to 'Editar Mi Cuenta', edit_usuario_path(current_usuario), :class => "btn", :style => "" %>
+		<%= link_to 'Cambiar Contraseña', edit_usuario_registration_path, :class => "btn" %>
+             </legend>        
+             <div id="tabs" style="background-color: rgb(0, 0, 0);">
+                    <ul>
+                        <li><a href="#tabs-1">Lista De Futboladas</a></li>
+                        <li><a href="#tabs-2">Lista De Reservas</a></li>
+                    <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+                        <li><a href="#tabs-3">Lista De Usuarios</a></li>
+                        <li><a href="#tabs-4">Lista De Canchas</a></li>
+                    <% end %>
+                    </ul>
+                    <div id="tabs-1">
+                      <%= render 'futboladas' %>
+                    </div>
+                    <div id="tabs-2">
+                        <%= render 'reservas' %>
+                  </div>
+                <% if current_usuario.tipo == 'admin' || current_usuario.tipo == 'ope' %>
+                  <div id="tabs-3">
+                    <%= render 'usuarios' %>
+                  </div>
+                  <div id="tabs-4">
+                    <%= render 'canchas' %>
+                  </div>
+                <% end %>
+                </div>           
+                     
+                     
+                     
+             
+             </div>  
+        </div>
+    
+    	<div class="bloque">
+        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
+            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> En nuestra sección de servicios podrás encontrar lo que en La Cantera Fut Sal podemos ofrecerte, desde reserva de canchas de futbol, hasta organización de Futboladas y Ligas. </p>
+            <div class="irA">
+            	<a href="/servicios"> 
+                	Ir a Servicios 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+            
+    	</div>
+		
+        <div class="separador2">
+        </div>
+        <div class="bloque">
+        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
+            <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> En nuestra sección de Ubicación, podrás tener la ubicación clara de donde nos encontramos e identificaras las ventajas que tenemos en la zona de nuestro complejo. </p>
+            <div class="irA">
+            	<a href="/ubicanos"> 
+                	Ir a Ubicación 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        <div class="separador2">
+        </div>
+		
+        <div class="bloque">
+        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
+            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
+            <p> Conoce sobre nuestro grupo, ¿quiénes somos?, ¿qué buscamos? Y conoce la motivación para realizar este proyecto. </p>
+            <div class="irA">
+            	<a href="/sobre_nosotros">
+                	Ir a Sobre Nosotros 
+                	<i class="icon-chevron-right"></i>
+                </a> 
+            </div>
+    	</div>
+        
+        <div id="footer">
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
+            
+            <div id="derInfo">
+                <div id="publicidad1" style=" width:98%; height: 73px">
+                
+                
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+        
+        	
+    	</div>
+    </div>
+</div>
+
+<div id="myModalError" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Error</h3>
+	</div>
+	<div class="modal-body">
+		<div id="Error" style="color:#090">           
+            <center><h5 id="avisoError"></h5></center>
+		</div>
+	</div>
+       <div class="modal-footer">
+       </div>
+</div>
+
+</body>
+</html>

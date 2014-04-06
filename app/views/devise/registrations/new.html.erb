@@ -3,22 +3,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <title>La Cantera FutSal</title>
-<link rel="shortcut icon" href="assets/img/favicon.ico">
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<%= favicon_link_tag 'favicon.ico' %>
 
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" >
-<link rel="stylesheet" type="text/css" href="assets/css/bootstrap-responsive.css" >
-<link rel="stylesheet" type="text/css" href="assets/css/style.css" >
+<%= stylesheet_link_tag "bootstrap.css" %>
+<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+<%= stylesheet_link_tag "style.css" %>
 
-<script type="text/javascript" src="assets/js/jquery-1.9.1.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-<script type="text/javascript" src="assets/js/jquery.validate.js"></script>
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "bootstrap.js" %>
+<%= javascript_include_tag "jquery.validate.js" %>
+
 <script>
     $(document).ready(function(){    
         $("#commentForm").validate({
             rules: {
                 'usuario[password]': {required: true,minlength: 6},
                 'usuario[password_confirmation]': {	required: true,	minlength: 6, equalTo: "#password"},
-                'usuario[email]': { required: false, email: true },
+                'usuario[email]': { required: true, email: true },
 				'usuario[nombre]': {required: true},
 				'usuario[apellido]': {required: true},
 				'usuario[cedula]': {required: true, digits: true},
@@ -56,6 +58,16 @@
             } 
 			 
         });
+
+        <% if resource.errors.count != 0 %>          
+            <% resource.errors.each do |re| %>
+                <% resource.errors[re].each do |msg| %>
+                    $("#avisoError").append("<p>- <%= msg %></p>");
+                <% end %>
+            <% end %>
+            $("#myModalError").modal('show');
+       <% end %>
+
     });
 </script>
 
@@ -71,7 +83,10 @@
 <div id="loginArea">
 	<div id="autenticacion">
         <% if usuario_signed_in? %>
-          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :method => 'delete', :class => "btn btn-success" %>
+          <% if es_admin? %>
+            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
+          <% end %>
+          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
         <% else %>
             <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
           <a href="/registrar" class="btn btn-success">Registro</a>
@@ -85,28 +100,27 @@
     <!-- Identificación de la empresa -->
 	<div id="nav-outer">
 		<div id="Identification">
-        	<div id="logo" style="float:left;"> <a href="index.html"><%= image_tag "LogoLaCantera.png" %></a> </div>
+        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
             <div class="separador"></div>
             <div id="desc">
             	<h1> La Cantera FutSal </h1>
             	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
             </div>
-            
             <div id="redesSociales">
-        		<a href="#">
-              <%= image_tag "facebook-48.png" %>
+        		<a href="http://www.facebook.com/lacantera.futsal">
+					<%= image_tag "facebook-48.png" %>
    					Facebook
  				</a>
-                <a href="#">
-                  <%= image_tag "twitter-48.png" %>
+                <a href="https://twitter.com/canterafutsal">
+					<%= image_tag "twitter-48.png" %>
    					Twitter
  				</a>
-                <a href="#">
-                  <%= image_tag "instagram-48.png" %>
+                <a href="http://instagram.com/canterafutsal#">
+					<%= image_tag "instagram-48.png" %>
    					Instagram
  				</a>
-                <a href="#">
-                  <%= image_tag "youtube-48.png" %>
+                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
+					<%= image_tag "youtube-48.png" %>
    					Youtube
  				</a>   
         	</div>
@@ -118,16 +132,10 @@
  		<div id="contenido">
             <p style="color:red">NOTA: Todos los campos indicados en rojo deben ser llenados</p>
             <p> A continuación se presentarán los campos para el registro de usuario, debe crear una cuenta en el sistema para poder acceder al mismo. </p>
-
-            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :id => "commentForm") do |f| %>
+            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "commentForm" }) do |f| %>
             	<fieldset >
                     <legend>Registro de Usuario</legend>
-                    <center><div style="background-color:white;width:20%;color:red;font-size:14px;font-weight:bold;">
-                    	<% if resource.errors[:email].present? %>
-					      <% resource.errors[:email].each do |msg| %>
-					        <%= msg %></br>
-					      <% end %>
-					  <% end %></div></center>
+
                     <label style="color:red">Nombre del usuario:</label>
                     <%= f.text_field :nombre, :placeholder => "Nombre", :class => "span3" %>
                     <%= f.text_field :apellido, :placeholder => "Apellido", :class => "span3" %>
@@ -141,6 +149,7 @@
                     <%= f.text_field :email, :placeholder => "Correo", :class => "span3", :id => "email" %>
                     <label>Número telefónico:</label>
                     <%= f.text_field :telefono, :placeholder => "Teléfono", :class => "span3", :id => "telefono" %>
+		    <%= f.hidden_field :tipo, :value => 'cli' %>
                     <center>
                     	<button type="submit" class="btn">Enviar</button>
                     	<!--%= f.submit "Enviar", :class => "btn" %-->
@@ -150,9 +159,9 @@
         </div>
     
     	<div class="bloque">
-        	<h2 style="color:#67c700; text-align:center"> Servicios </h2>
+        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
             <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <p> En nuestra sección de servicios podrás encontrar lo que en La Cantera Fut Sal podemos ofrecerte, desde reserva de canchas de futbol, hasta organización de Futboladas y Ligas. </p>
             <div class="irA">
             	<a href="/servicios"> 
                 	Ir a Servicios 
@@ -161,12 +170,13 @@
             </div>
             
     	</div>
+		
         <div class="separador2">
         </div>
         <div class="bloque">
-        	<h2 style="color:#0CF; text-align:center"> Ubicación </h2>
+        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
             <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <p> En nuestra sección de Ubicación, podrás tener la ubicación clara de donde nos encontramos e identificaras las ventajas que tenemos en la zona de nuestro complejo. </p>
             <div class="irA">
             	<a href="/ubicanos"> 
                 	Ir a Ubicación 
@@ -176,12 +186,13 @@
     	</div>
         <div class="separador2">
         </div>
+		
         <div class="bloque">
-        	<h2 style="coloR:#FFF; text-align:center"> Sobre Nosotros </h2>
+        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
             <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac magna orci, ut faucibus felis. In hac habitasse platea dictumst. Nullam pellentesque, lorem suscipit sollicitudin hendrerit, dolor nibh placerat nulla. </p>
+            <p> Conoce sobre nuestro grupo, ¿quiénes somos?, ¿qué buscamos? Y conoce la motivación para realizar este proyecto. </p>
             <div class="irA">
-            	<a href="/sobre_nosotros"> 
+            	<a href="/sobre_nosotros">
                 	Ir a Sobre Nosotros 
                 	<i class="icon-chevron-right"></i>
                 </a> 
@@ -189,12 +200,40 @@
     	</div>
         
         <div id="footer">
-        	<h3>Nelson Medina y Alfredo Gallardo - Espacio para publicidad</h3>
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
             
+            <div id="derInfo">
+                <div id="publicidad1" style=" width:98%; height: 73px">
+                
+                
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+        
+        	
     	</div>
     </div>
 </div>
 
 
+<div id="myModalError" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Error</h3>
+	</div>
+	<div class="modal-body">
+		<div id="Error" style="color:#090">           
+            <center><h5 id="avisoError"></h5></center>
+		</div>
+	</div>
+       <div class="modal-footer">
+       </div>
+</div>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Reserva:</b>
+  <%= @reserva_cancha.reserva_id %>
+</p>
+
+<p>
+  <b>Cancha:</b>
+  <%= @reserva_cancha.cancha_id %>
+</p>
+
+<p>
+  <b>Monto:</b>
+  <%= @reserva_cancha.monto %>
+</p>
+
+
+<%= link_to 'Edit', edit_reserva_cancha_path(@reserva_cancha) %> |
+<%= link_to 'Back', reserva_canchas_path %>

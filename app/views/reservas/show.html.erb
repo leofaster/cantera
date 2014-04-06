@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Usuario:</b>
+  <%= @reserva.usuario_id %>
+</p>
+
+<p>
+  <b>Tipo cancha:</b>
+  <%= @reserva.tipo_cancha %>
+</p>
+
+<p>
+  <b>Fecha ingreso:</b>
+  <%= @reserva.fecha_ingreso %>
+</p>
+
+<p>
+  <b>Hora inicio:</b>
+  <%= @reserva.hora_inicio %>
+</p>
+
+<p>
+  <b>Cant horas:</b>
+  <%= @reserva.cant_horas %>
+</p>
+
+
+<%= link_to 'Edit', edit_reserva_path(@reserva) %> |
+<%= link_to 'Back', reservas_path %>

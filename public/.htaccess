@@ -12,4 +12,4 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ dispatch.fcgi/$1 [QSA,L] 
  
-ErrorDocument 500 "Pelamos Bola xD"
+ErrorDocument 500 "Error al cargar"

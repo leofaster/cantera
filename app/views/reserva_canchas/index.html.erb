@@ -1,0 +1,27 @@
+<h1>Listing reserva_canchas</h1>
+
+<table>
+  <tr>
+    <th>Reserva</th>
+    <th>Cancha</th>
+    <th>Monto</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @reserva_canchas.each do |reserva_cancha| %>
+  <tr>
+    <td><%= reserva_cancha.reserva_id %></td>
+    <td><%= reserva_cancha.cancha_id %></td>
+    <td><%= reserva_cancha.monto %></td>
+    <td><%= link_to 'Show', reserva_cancha %></td>
+    <td><%= link_to 'Edit', edit_reserva_cancha_path(reserva_cancha) %></td>
+    <td><%= link_to 'Destroy', reserva_cancha, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Reserva cancha', new_reserva_cancha_path %>

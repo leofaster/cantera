@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @cancha.nombre %>
+</p>
+
+<p>
+  <b>Monto:</b>
+  <%= @cancha.monto %>
+</p>
+
+
+<%= link_to 'Edit', edit_cancha_path(@cancha) %> |
+<%= link_to 'Back', canchas_path %>

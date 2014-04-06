@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  usuario_id: 1
+  tipo_cancha: MyString
+  fecha_ingreso: 2013-05-12
+  hora_inicio: MyString
+  cant_horas: 1
+
+two:
+  usuario_id: 1
+  tipo_cancha: MyString
+  fecha_ingreso: 2013-05-12
+  hora_inicio: MyString
+  cant_horas: 1

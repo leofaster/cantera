@@ -1,0 +1,9 @@
+Estimado <%= @user.nombre %> <%= @user.apellido %>
+===============================================
+ 
+Su solicitud se ha realizado con éxito, el ID de su <%= @servicio.class.name == 'Futbolada' ? '' : 'Reserva' %>
+      es: <%= @servicio.id %>.
+ 
+No olvide que puede ver sus Futboladas o Reservaciones a tráves del siguiente link: <%= @url %>.
+ 
+Gracias
