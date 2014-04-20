@@ -24,7 +24,7 @@ var photos = [
 		"textolink" : "ENTRA AQUÍ",
 		"image" : "imagen2.jpg",
 		"url" : "/servicios",
-		"firstline" : "Entra en la Academia del U.A Falcón",
+		"firstline" : "Entra ya, academia U.A Falcón",
 		"secondline" : "Para mayor información"
 	}
 ];

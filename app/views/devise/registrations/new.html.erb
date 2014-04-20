@@ -1,17 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<title>La Cantera FutSal</title>
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-<%= favicon_link_tag 'favicon.ico' %>
 
-<%= stylesheet_link_tag "bootstrap.css" %>
-<%= stylesheet_link_tag "bootstrap-responsive.css" %>
-<%= stylesheet_link_tag "style.css" %>
-
-<%= javascript_include_tag "jquery-1.9.1.js" %>
-<%= javascript_include_tag "bootstrap.js" %>
 <%= javascript_include_tag "jquery.validate.js" %>
 
 <script>
@@ -19,25 +7,25 @@
         $("#commentForm").validate({
             rules: {
                 'usuario[password]': {required: true,minlength: 6},
-                'usuario[password_confirmation]': {	required: true,	minlength: 6, equalTo: "#password"},
+                'usuario[password_confirmation]': { required: true, minlength: 6, equalTo: "#password"},
                 'usuario[email]': { required: true, email: true },
-				'usuario[nombre]': {required: true},
-				'usuario[apellido]': {required: true},
-				'usuario[cedula]': {required: true, digits: true},
-				'usuario[telefono]': {required: false, digits: true}
+                'usuario[nombre]': {required: true},
+                'usuario[apellido]': {required: true},
+                'usuario[cedula]': {required: true, digits: true},
+                'usuario[telefono]': {required: false, digits: true}
             },
-				
+                
             messages: {
-				'usuario[nombre]': { 
-					required: "Por favor introduzca su nombre"
-				},
-				'usuario[cedula]': { 
-					required: "Por favor introduzca su cédula de identidad",
-					digits: "Este campo solo posee números"
-				},
-				'usuario[apellido]': { 
-					required: "Por favor introduzca su Apellido"
-				},
+                'usuario[nombre]': { 
+                    required: "Por favor introduzca su nombre"
+                },
+                'usuario[cedula]': { 
+                    required: "Por favor introduzca su cédula de identidad",
+                    digits: "Este campo solo posee números"
+                },
+                'usuario[apellido]': { 
+                    required: "Por favor introduzca su Apellido"
+                },
                 'usuario[password]': {
                     required: "Por favor introduzca una contraseña",
                     minlength: "La contraseña debe tener mínimo 6 caracteres"
@@ -50,13 +38,13 @@
                 'usuario[email]': { 
                     required: "Por favor introduzca un correo electrónico", 
                     email: "la sintaxis de correo debe ser correcta" 
-				},
-				'usuario[telefono]': {
-					digits: "Este campo solo posee números"	
-				}
-				
+                },
+                'usuario[telefono]': {
+                    digits: "Este campo solo posee números" 
+                }
+                
             } 
-			 
+             
         });
 
         <% if resource.errors.count != 0 %>          
@@ -71,169 +59,56 @@
     });
 </script>
 
-<meta name="description" content="Reserva tu cancha de futbol online">
-<meta name="keywords" content="FutSal, Futbol, reserva, online">
-<meta name="author" content="Nelson Medina y Alfredo Gallardo">
-<meta charset="UTF-8">
-</head>
+<ol class="breadcrumb">
+  <li><a href="/">Home</a> </li>
+  <li class='active'>/ Registrar</li>
+</ol>
 
-<body>
+<div id="contenido">
+    <p style="color:red">NOTA: Todos los campos indicados en rojo deben ser llenados</p>
 
+    <p> A continuación se presentarán los campos para el registro de usuario, debe crear una cuenta en el sistema para poder acceder al mismo.</p>
 
-<div id="loginArea">
-	<div id="autenticacion">
-        <% if usuario_signed_in? %>
-          <% if es_admin? %>
-            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
-          <% end %>
-          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
-        <% else %>
-            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
-          <a href="/registrar" class="btn btn-success">Registro</a>
-        <% end %>
-    </div>
-</div>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "commentForm" }) do |f| %>
+        <fieldset>
+            <legend>Registro de Usuario</legend>
 
-
-
-<div style="height:210px" id="header">
-    <!-- Identificación de la empresa -->
-	<div id="nav-outer">
-		<div id="Identification">
-        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
-            <div class="separador"></div>
-            <div id="desc">
-            	<h1> La Cantera FutSal </h1>
-            	<p style="color:#999; font-size:16px"> Eslogan de la empresa </p>
-            </div>
-            <div id="redesSociales">
-        		<a href="http://www.facebook.com/lacantera.futsal">
-					<%= image_tag "facebook-48.png" %>
-   					Facebook
- 				</a>
-                <a href="https://twitter.com/canterafutsal">
-					<%= image_tag "twitter-48.png" %>
-   					Twitter
- 				</a>
-                <a href="http://instagram.com/canterafutsal#">
-					<%= image_tag "instagram-48.png" %>
-   					Instagram
- 				</a>
-                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
-					<%= image_tag "youtube-48.png" %>
-   					Youtube
- 				</a>   
-        	</div>
-		</div>     
-	</div>
-</div>
-<div style="height:700px" id="content">
-	<div style="height:870px" id="navegation">
- 		<div id="contenido">
-            <p style="color:red">NOTA: Todos los campos indicados en rojo deben ser llenados</p>
-            <p> A continuación se presentarán los campos para el registro de usuario, debe crear una cuenta en el sistema para poder acceder al mismo. </p>
-            <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :id => "commentForm" }) do |f| %>
-            	<fieldset >
-                    <legend>Registro de Usuario</legend>
-
-                    <label style="color:red">Nombre del usuario:</label>
-                    <%= f.text_field :nombre, :placeholder => "Nombre", :class => "span3" %>
-                    <%= f.text_field :apellido, :placeholder => "Apellido", :class => "span3" %>
-                    <label style="color:red">Cédula de Identidad:</label>
-                    <%= f.text_field :cedula, :placeholder => "CI", :class => "span3" %>
-                    <label style="color:red" >Contraseña:</label>
-                    <%= f.password_field :password, :id => "password", :placeholder => "Contraseña", :class => "text", :title => "Ingrese su contraseña" %>
-            		<label style="color:red">Confirmar Contraseña:</label>
-            		<%= f.password_field :password_confirmation, :id => "confirm_password", :placeholder => "Confirmar Contraseña", :class => "text" %>
-                    <label style="color:red">Correo electrónico:</label>
-                    <%= f.text_field :email, :placeholder => "Correo", :class => "span3", :id => "email" %>
-                    <label>Número telefónico:</label>
-                    <%= f.text_field :telefono, :placeholder => "Teléfono", :class => "span3", :id => "telefono" %>
-		    <%= f.hidden_field :tipo, :value => 'cli' %>
-                    <center>
-                    	<button type="submit" class="btn">Enviar</button>
-                    	<!--%= f.submit "Enviar", :class => "btn" %-->
-                    </center>
-             	</fieldset>
-			<% end %>
-        </div>
-    
-    	<div class="bloque">
-        	<h2 style="color:#42a41f; text-align:center"> Servicios </h2>
-            <%= image_tag "calendario.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> En nuestra sección de servicios podrás encontrar lo que en La Cantera Fut Sal podemos ofrecerte, desde reserva de canchas de futbol, hasta organización de Futboladas y Ligas. </p>
-            <div class="irA">
-            	<a href="/servicios"> 
-                	Ir a Servicios 
-                	<i class="icon-chevron-right"></i>
-                </a> 
-            </div>
+            <label style="color:red">Nombre del usuario:</label>
+            <%= f.text_field :nombre, :placeholder => "Nombre", :class => "span3" %>
+            <%= f.text_field :apellido, :placeholder => "Apellido", :class => "span3" %>
             
-    	</div>
-		
-        <div class="separador2">
-        </div>
-        <div class="bloque">
-        	<h2 style="color:#3276b9; text-align:center"> Ubicación </h2>
-            <%= image_tag "mapa.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> En nuestra sección de Ubicación, podrás tener la ubicación clara de donde nos encontramos e identificaras las ventajas que tenemos en la zona de nuestro complejo. </p>
-            <div class="irA">
-            	<a href="/ubicanos"> 
-                	Ir a Ubicación 
-                	<i class="icon-chevron-right"></i>
-                </a> 
-            </div>
-    	</div>
-        <div class="separador2">
-        </div>
-		
-        <div class="bloque">
-        	<h2 style="coloR:#eaebec; text-align:center"> Sobre Nosotros </h2>
-            <%= image_tag "informacion.png", :style => "margin: 5px 0px 5px 5px;float: left; " %>
-            <p> Conoce sobre nuestro grupo, ¿quiénes somos?, ¿qué buscamos? Y conoce la motivación para realizar este proyecto. </p>
-            <div class="irA">
-            	<a href="/sobre_nosotros">
-                	Ir a Sobre Nosotros 
-                	<i class="icon-chevron-right"></i>
-                </a> 
-            </div>
-    	</div>
-        
-        <div id="footer">
-        	<div id="izqInfo">
-            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
-            </div>
+            <label style="color:red">Cédula de Identidad:</label>
+            <%= f.text_field :cedula, :placeholder => "CI", :class => "span3" %>
             
-            <div id="derInfo">
-                <div id="publicidad1" style=" width:98%; height: 73px">
-                
-                
-                </div>
-                
-                <center>
-                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
-                    Diseño Web y programación realizada por Developeers</p>
-                </center>
-            </div>
-        
-        	
-    	</div>
-    </div>
+            <label style="color:red" >Contraseña:</label>
+            <%= f.password_field :password, :id => "password", :placeholder => "Contraseña", :class => "text", :title => "Ingrese su contraseña" %>
+            
+            <label style="color:red">Confirmar Contraseña:</label>
+            <%= f.password_field :password_confirmation, :id => "confirm_password", :placeholder => "Confirmar Contraseña", :class => "text" %>
+            
+            <label style="color:red">Correo electrónico:</label>
+            <%= f.text_field :email, :placeholder => "Correo", :class => "span3", :id => "email" %>
+            
+            <label>Número telefónico:</label>
+            <%= f.text_field :telefono, :placeholder => "Teléfono", :class => "span3", :id => "telefono" %>
+    <%= f.hidden_field :tipo, :value => 'cli' %>
+            <center>
+                <button type="submit" class="btn">Enviar</button>
+            </center>
+        </fieldset>
+    <% end %>
 </div>
-
 
 <div id="myModalError" class="modal hide fade">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3>Error</h3>
-	</div>
-	<div class="modal-body">
-		<div id="Error" style="color:#090">           
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Error</h3>
+    </div>
+    <div class="modal-body">
+        <div id="Error" style="color:#090">           
             <center><h5 id="avisoError"></h5></center>
-		</div>
-	</div>
+        </div>
+    </div>
        <div class="modal-footer">
        </div>
 </div>
-</body>
-</html>

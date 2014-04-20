@@ -6,6 +6,8 @@ class EstaticosController < ApplicationController
        @modulo = session[:modulo]
        session[:exito] = nil
     end
+
+    @publicidad = true;
   end
 
   def servicios
@@ -15,5 +17,14 @@ class EstaticosController < ApplicationController
   end
  
   def sobre_nosotros
+  end
+
+  def instalaciones
+  end
+
+  def contactanos
+  end
+
+  def enviar_correo
   end
 end

@@ -12,12 +12,20 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 .break { clear:both; }
 
 /* HEADER */
-#header { height:600px; }
-.headerimg { background-position: center top; background-repeat: no-repeat; width:100%; height:600px; position:absolute; }
+#header { height:158px; }
+.headerimg {
+	top:0px;
+	left:0px;
+	background-position: center top;
+	background-repeat: no-repeat;
+	width:100%;
+	height:600px;
+	position:absolute;
+}
 
 /* Identification */
 #logo{
-	top : -25px;
+	top : 10px;
 	position: relative;
 }
 
@@ -25,8 +33,17 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	height: 110px;
 	padding-bottom: 11px;
 	position: relative;
-	top: 36px;
-	background-image:url("headerbg.png"); 
+	top: 0px;
+	background-image:url("headerbg.png");
+}
+
+#publicidad {
+	float:right;
+	width:400px;
+	height: 428px;
+	position: relative;
+	margin-top: 5px;
+	background-image:url("headerbg.png");
 }
 
 #Identification { 
@@ -50,7 +67,14 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 #menu ul li a:hover { text-decoration:underline; }
 
 /* HEADER TEXT */
-#headertxt { width:960px; margin:0 auto; clear:both; position:relative; top:74px; }
+#headertxt {
+	width:960px;
+	margin:0 auto;
+	clear:both;
+	position:absolute;
+	top:205px;
+}
+
 #firstline { 
 	background-image:url("textbg.png"); 
 	color:#67c700; 
@@ -62,7 +86,7 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 
 #secondline { 
 	background-image:url("textbg.png"); 
-	color:#000; 
+	color:#000 !important; 
 	text-decoration:none; 
 	font-size:20px; 
 	padding:0 13px 10px; 
@@ -71,15 +95,23 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	clear:both; 
 }
 
-.pictured { 
+.pictured {
+	position:relative;
+	top:10px;
 	background-color:#203a54; 
 	color:#FFF; font-size:12px; 
 	padding:9px 16px; 
 	text-transform:uppercase; 
 	float:left; display:block; 
-	clear:both; margin-top:10px; 
+	clear:both; margin-top:10px;
 }
-.pictured a { font-size:16px; font-style:italic; letter-spacing:0; text-transform:none; color:#FFF; text-decoration:none; }
+
+.caption {
+	position:relative;
+	left:-20px;
+}
+
+.pictured a { font-size:16px; font-style:italic; letter-spacing:0; text-transform:none; color:#FFF !important; text-decoration:none; }
 .pictured a:hover { text-decoration:underline; }
 
 /* CONTROLS */
@@ -89,11 +121,22 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 #control { background-image:url("btn_pause.png"); }
 
 /* HEADER HAVIGATION */
-#headernav-outer { position:relative; top:400px; margin:0 auto; width:960px; }
-#headernav { padding-left:864px; }
+#headernav-outer {
+	position:relative;
+	top:-45px;
+	margin:0 auto;
+	width:960px;
+}
+
+#headernav {
+	padding-left:864px;
+}
 
 /* CONTENT */
-#content { color:#575757;}
+#content {
+	color:#575757;
+}
+
 #content p  {  
 	padding:10px 20px; 
 	font-size:13px;
@@ -102,11 +145,18 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 
 #content li  {   
 	font-size:13px;
-	margin-left: 50px;
+	margin-left: 5px;
 }
 
-#content p a { text-decoration:none; color:#CD2B3A; }
-#content p a:hover { text-decoration:underline; color:#7F000C; }
+#content p a {
+	text-decoration:none;
+	color:#CD2B3A;
+}
+
+#content p a:hover {
+	text-decoration:underline;
+	color:#7F000C;
+}
 
 #loginArea {
 	height: 30px;
@@ -120,7 +170,7 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	height: 100px;
 	width: 300px;
 	padding-left: 30px;
-	margin-top: -20px; 
+	margin-top: 5px; 
 }
 
 #Identification h1 {
@@ -131,25 +181,29 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 
 #Identification .separador {
 	background-color: #CCC;
-	margin-top:-27px;
+	margin-top:0px;
 	height: 101px;
 	width: 2px;
 	float:left;
+	position:relative;
+	top:5px;
 }
-#navegation{
+
+#navegation {
 	padding:5px 5px;  
 	width:960px; 
 	margin:0 auto; 
 	background-color:#CCC;
-	height:60px;
+	height:auto;
 	font-size:16px;
 }
 
 #navegation .bloque {
-	float: left;
-	/*height: 220px;*/
-	width: 296px;
-	/*margin:10px;*/
+	display:inline-block;
+	position:relative;
+	top:-10px;
+	width: 164px;
+	padding-left:15px;
 }
 
 #footer {
@@ -157,24 +211,24 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	height: 140px;
 	width:970px;
 	float:left;
-	margin-left: -5px;
+	margin: 0 264px;
 }
 
 .separador2 {
+	display:inline-block;
 	border-right-width: 2px;
 	border-right-style: solid;
 	border-right-color: #FFF;
 	height: 34px;
 	width:2px;
-	float:left;
-	margin-top:10px;
+	margin-top:5px;
 }
 #redesSociales {
 	float: right;
 	height: 100%;
-	width: 260px;
+	width: 350px;
 	list-style: none;
-	margin-top: -20px;
+	margin-top: 0px;
 }
 #redesSociales a {
 	font-size: 14px;
@@ -205,10 +259,10 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	float: right;
 	margin-left: 60px;
 }
-#navegation #contenido {
+
+#contenido {
+	display:inline-block;
 	background-color:#E2E2E2;
-	float: left;
-	min-height: 600px;
 	width: 100%;
 }
 #contenido #commentForm {
@@ -216,8 +270,15 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	width:90%;
 	min-height:500px;
 	overflow:auto;
-	
-}#escrito #marcomapa {
+}
+
+#escrito {
+	padding:0px 0px 0px 20px;text-align:justify;
+	display:inline-block;
+	width:500px;
+}
+
+#escrito #marcomapa {
 	background-color: #666;
 	min-height: 350px;
 	width: 425px;
@@ -253,10 +314,14 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 	float:right;
 }
 
- #navegation .bloque .irA a {
+#navegation .bloque .irA a {
 	text-shadow: 1px 1px 3px #000000;
-        filter: dropshadow(color=#000000, offx=1, offy=1);
- }
+    filter: dropshadow(color=#000000, offx=1, offy=1);
+}
+
+#navegation .bloque a {
+	text-decoration:none;
+}
 
 #reservaSist #interno .bloqueCancha {
         float:left; 
@@ -264,13 +329,12 @@ body { background-color:#1b2940; font:80% 'Source Sans Pro', serif; letter-spaci
 }
 
 #content #navegation .bloque h4 {
-	text-shadow: 1px 1px 3px #000000;
-        filter: dropshadow(color=#000000, offx=2, offy=2);
+    filter: dropshadow(color=#000000, offx=2, offy=2);
 }
 
 #content #navegation #contenido #escrito #reservaSist {
-background-color: #000;
-background-image: url(fondo.png);        
+	background-color: #000;
+	background-image: url(fondo.png);        
 }
 
 #accordion .ui-accordion-content {

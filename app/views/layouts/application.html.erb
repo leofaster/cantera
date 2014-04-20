@@ -1,2 +1,243 @@
 # encoding: UTF-8
-<%= yield %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>La Cantera FutSal</title>
+		<%= favicon_link_tag 'favicon.ico' %>
+		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+
+		<%= stylesheet_link_tag "bootstrap.css" %>
+		<%= stylesheet_link_tag "bootstrap-responsive.css" %>
+		<%= stylesheet_link_tag "style.css" %>
+
+		<%= javascript_include_tag "jquery-1.9.1.js" %>
+		<%= javascript_include_tag "script.js" %>
+		<%= javascript_include_tag "bootstrap.js" %>
+
+		<meta name="description" content="Reserva tu cancha de futbol online">
+		<meta name="keywords" content="FutSal, Futbol, reserva, online">
+		<meta name="author" content="Nelson Medina y Alfredo Gallardo">
+		<meta charset="UTF-8">
+
+		<script>
+			<% if @exito == "si" %>
+			  $(document).ready(function() {
+			      $("#myModal").modal('show');
+			  });
+			<% end %>
+
+			$(document).ready(function() {
+			    var tamEscrito = $('#escrito').length
+			    if(tamEscrito > 0) {
+			    	$('#contenido').append('<div id="publicidad" style="top:50px;">' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			        '<%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>' +
+			    	'</div>');
+			    }
+
+			    $(window).scroll(function(){
+			    	if(tamEscrito > 0) {
+					    if ($(this).scrollTop() > 250 && 
+					    	$(this).scrollTop() < $('#contenido').css('height').split('px')[0] - 
+					    	$('#publicidad').css('height').split('px')[0] - 56) {
+					        $('#publicidad').css('top',$(this).scrollTop() - 200);
+					    } else {
+					    	if ($(this).scrollTop() <= 250) {
+					    		$('#publicidad').css('position','');
+					    		$('#publicidad').css('top','50px');
+					    		$('#publicidad').css('right','0px');
+					    	}
+
+					    	if($(this).scrollTop() >= $('#contenido').css('height').split('px')[0] - 
+					    		$('#publicidad').css('height').split('px')[0] - 56) {
+					    		$('#publicidad').css('position','');
+					    		$('#publicidad').css('right','0px');
+					    		$('#publicidad').css('top',$('#contenido').css('height').split('px')[0] - 
+					    									 $('#publicidad').css('height').split('px')[0] - 56);
+					    	}
+					    }
+				    }
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="header">
+			<!-- Identificación de la empresa -->
+			<div id="nav-outer">
+				<div id="Identification">
+		        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
+		            
+		            <div class="separador"></div>
+		            
+		            <div id="desc">
+		            	<h1> La Cantera FutSal </h1>
+		            	<br />
+		                <p style="color:#999; font-size:26px"> Vive la pasión &nbsp;&nbsp;</p>
+		            </div>
+
+		            <div id="redesSociales">		      
+		        		<a href="http://www.facebook.com/lacantera.futsal" target="_blank">
+							<%= image_tag "facebook-48.png" %>
+		   					Facebook
+		 				</a>
+
+		                <a href="https://twitter.com/canterafutsal" target="_blank">
+							<%= image_tag "twitter-48.png" %>
+		   					Twitter&nbsp;&nbsp;&nbsp;
+		 				</a>
+
+		 				<a href="/iniciar_sesion">
+							<%= image_tag "calendario.png" %>
+		   					Reservar
+		 				</a>
+
+		                <a href="http://instagram.com/canterafutsal#" target="_blank">
+							<%= image_tag "instagram-48.png" %>
+		   					Instagram
+		 				</a>
+
+		                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw" target="_blank">
+							<%= image_tag "youtube-48.png" %>
+		   					Youtube
+		 				</a>
+
+		 				<a href="/registrar">
+							<%= image_tag "form2-48.png" %>
+		   					Registrar
+		 				</a>
+		        	</div>
+				</div>     
+			</div>
+
+			<% if @publicidad %>
+				<div id="publicidad" style="margin-right: 269px;">
+					<center>
+					<%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "192px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 0px 0px 5px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+			        <%= image_tag "UAF.jpg", :width => "50px", :style => "margin: 5px 5px 0px 0px;" %>
+					</center>
+				</div>
+			<% end %>
+		</div>
+
+		<div id="content">
+			<div id="navegation">
+				<% if request.env['PATH_INFO'] != "/" %>
+					<ol class="breadcrumb">
+					  <li><a href="/">Home</a> </li>
+					  <% if request.env['PATH_INFO'] == "/que_ofrecemos" %>
+					  	<li class='active'>/ ¿Qué Ofrecemos?</li>
+					  <% elsif request.env['PATH_INFO'] == "/ubicanos" %>
+					  	<li class='active'>/ ¿Dónde estamos?</li>
+					  <% elsif request.env['PATH_INFO'] == "/sobre_nosotros" %>
+					  	<li class='active'>/ ¿Quiénes somos?</li>
+					  <% elsif request.env['PATH_INFO'] == "/instalaciones" %>
+					  	<li class='active'>/ Instalaciones</li>
+					  <% elsif request.env['PATH_INFO'] == "/contactanos" %>
+					  	<li class='active'>/ Contactanos</li>
+					  <% end %>
+					</ol>
+				<% end %>
+
+				<div id="contenido">
+					<%= yield %>
+				</div>
+
+				<div class="bloque">
+		        	<a href="/que_ofrecemos" style=""> 
+		           		<h4 style="text-shadow: 2px 2px 0px #000000;color:#42a41f;text-align:center;"> ¿Qué ofrecemos? </h4>
+		            </a>
+		        </div>
+		        
+		        <div class="separador2">
+		        </div>
+
+		        <div class="bloque">
+		            <a href="/ubicanos"> 
+		            	<h4 style="text-shadow: 2px 2px 0px #000000;color:#3276b9;text-align:center"> ¿Dónde estamos? </h4>
+		            </a>
+		        </div>
+
+		        <div class="separador2">
+		        </div>
+		        
+		        <div class="bloque">
+		            <a href="/sobre_nosotros">
+		            	<h4 style="text-shadow: 1px 1px 4px #000000;coloR:#eaebec;text-align:center"> ¿Quiénes somos? </h4>
+		        	</a>
+		        </div>
+
+		        <div class="separador2">
+		        </div>
+
+		        <div class="bloque">
+		            <a href="/instalaciones">
+		            	<h4 style="text-shadow: 2px 2px 0px #000000;color:#3276b9;text-align:center"> Instalaciones </h4>
+		        	</a>
+		        </div>
+
+		        <div class="separador2">
+		        </div>
+
+		        <div class="bloque">
+		            <a href="/contactanos">
+		            	<h4 style="text-shadow: 2px 2px 0px #000000;color:#42a41f;text-align:center"> Contactanos </h4>
+		        	</a>
+		        </div>
+		        
+		    </div>
+		</div>
+	        
+        <div id="footer">
+        	<div id="izqInfo">
+            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
+            </div>
+            
+            <div id="derInfo">
+                <div id="publicidad1" style=" width:98%; height: 73px">   
+                </div>
+                
+                <center>
+                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
+                    Diseño Web y programación realizada por Developeers</p>
+                </center>
+            </div>
+    	</div>
+	</body>
+</html>
