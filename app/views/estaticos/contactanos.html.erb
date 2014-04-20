@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+<script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+  });
+</script>
+
+<div id="escrito">
+  <legend><h1>Contactanos</h1></legend>
+  
+  <h3>¡Llámanos o contáctanos!</h3>
+
+  <p>
+    Telefonos:<br/>
+    Correos:
+    Facebook: &nbsp;<a href="http://www.facebook.com/lacantera.futsal" style="color:blue;" target="_blank">lacantera.futsal</a><br/>
+    Twitter: &nbsp;<a href="https://twitter.com/canterafutsal" style="color:blue;" target="_blank">@canterafutsal</a><br/>
+    Instagram: &nbsp;<a href="http://instagram.com/canterafutsal" style="color:blue;" target="_blank">canterafutsal</a><br/>
+    Youtube: &nbsp;<a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw" style="color:blue;" target="_blank">LaCantera Futsal</a><br/>
+  </p>
+
+  <h3>¡Escribenos!</h3>
+
+  <form method="/contactanos" method="POST" style="margin-left:20px;">
+    <span style="position:relative;right:70px;float:right;">Campos obligatorios*</span><br/>
+    Nombre*: <input name="nombre" type="text" style="position:relative;left:130px;"/><br/>
+    Apellido*: <input name="apellido" type="text" style="position:relative;left:130px;"/><br/>
+    Teléfono: <input name="telefono" type="text" style="position:relative;left:125px;"/><br/>
+    Email*: <input name="email" type="text" style="position:relative;left:150px;"/><br/>
+    Comentarios o sugerencias*: <textarea name="comentario_sugerencia" style="resize:vertical;"></textarea><br/>
+  </form>
+</div>

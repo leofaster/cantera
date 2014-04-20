@@ -1,158 +1,37 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<title>La Cantera FutSal</title>
-<%= favicon_link_tag 'favicon.ico' %>
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
-
-<%= stylesheet_link_tag "bootstrap.css" %>
-<%= stylesheet_link_tag "bootstrap-responsive.css" %>
-<%= stylesheet_link_tag "style.css" %>
-
-<%= javascript_include_tag "jquery-1.9.1.js" %>
-<%= javascript_include_tag "script.js" %>
-<%= javascript_include_tag "bootstrap.js" %>
-
-<%= javascript_include_tag "bootstrap.js" %>
-
-<meta name="description" content="Reserva tu cancha de futbol online">
-<meta name="keywords" content="FutSal, Futbol, reserva, online">
-<meta name="author" content="Nelson Medina y Alfredo Gallardo">
-<meta charset="UTF-8">
-
-<script>
-<% if @exito == "si" %>
-  $(document).ready(function() {
-      $("#myModal").modal('show');
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('#header').css('height','600px');
+    $('#navegation').css('height','33px');
+    $('.separador2').css('margin-top','0px');
+    $('.separador2').css('position','relative');
+    $('.separador2').css('top','-32px');
+    $('.bloque').css('top','-43px');
   });
-<% end %>
 </script>
-</head>
 
-
-<body>
-
-
-<div id="loginArea">
-	<div id="autenticacion">
-        <% if usuario_signed_in? %>
-          <% if es_admin? || es_ope? %>
-            <%= link_to 'Gestionar Datos', gestion_path, :class => "btn btn-success" %>
-          <% elsif es_cli? %>
-            <%= link_to 'Mi Cuenta', gestion_path, :class => "btn btn-success" %>
-          <% end %>
-          <%= link_to 'Cerrar Sesión', destroy_usuario_session_path, :class => "btn btn-success" %>
-        <% else %>
-            <a href="/iniciar_sesion" class="btn btn-success">Iniciar Sesión</a>
-          <a href="/registrar" class="btn btn-success">Registro</a>
-        <% end %>
-    </div>
+<!-- jQuery maneja este div para cambiar las imagenes y contenidos del slidershow -->
+<div id="headerimgs">
+  <div id="headerimg1" class="headerimg"></div>
+  <div id="headerimg2" class="headerimg"></div>
 </div>
 
-
-
-<div id="header">
-	<!-- jQuery maneja este div para cambiar las imagenes y contenidos del slidershow -->
-	<div id="headerimgs">
-		<div id="headerimg1" class="headerimg"></div>
-		<div id="headerimg2" class="headerimg"></div>
-	</div>
-	<!-- Identificación de la empresa -->
-	<div id="nav-outer">
-		<div id="Identification">
-        	<div id="logo" style="float:left;"> <a href="/"><%= image_tag "LogoLaCantera.png" %></a> </div>
-            <div class="separador"></div>
-            <div id="desc">
-            	<h1> La Cantera FutSal </h1>
-            	<br />
-                <p style="color:#999; font-size:26px"> Vive la pasión &nbsp;&nbsp;</p>
-            </div>
-            <div id="redesSociales">
-        		<a href="http://www.facebook.com/lacantera.futsal">
-					<%= image_tag "facebook-48.png" %>
-   					Facebook
- 				</a>
-                <a href="https://twitter.com/canterafutsal">
-					<%= image_tag "twitter-48.png" %>
-   					Twitter
- 				</a>
-                <a href="http://instagram.com/canterafutsal#">
-					<%= image_tag "instagram-48.png" %>
-   					Instagram
- 				</a>
-                <a href="http://www.youtube.com/channel/UCzQxJFSBTJ-jZ5XbZrMOSEw">
-					<%= image_tag "youtube-48.png" %>
-   					Youtube
- 				</a>   
-        	</div>
-		</div>     
-	</div>
-	<!-- Slideshow controladores -->
-	<div id="headernav-outer">
-		<div id="headernav">
-			<div id="back" class="btn1"></div>
-			<div id="control" class="btn1"></div>
-			<div id="next" class="btn1"></div>
-		</div>
-	</div>
-	<!-- Escritos del Slidershow -->
-	<div id="headertxt">
-		<p class="caption">
-			<span id="firstline"></span>
-			<a href="#" id="secondline"></a>
-		</p>
-		<p class="pictured">
-			<a href="#" id="pictureduri"></a>
-		</p>
-	</div>
+<!-- Slideshow controladores -->
+<div id="headernav-outer">
+  <div id="headernav">
+    <div id="back" class="btn1"></div>
+    <div id="control" class="btn1"></div>
+    <div id="next" class="btn1"></div>
+  </div>
 </div>
-<div id="content">
-	<div id="navegation">
-    	    
-		<div class="bloque">
-                <a href="/servicios"> 
-            <h4 style="color:#42a41f; text-align:center"> ¿Qué ofrecemos? </h4>
-                </a> 
-            
-        </div>
-        
-        <div class="separador2">
-        </div>
-        <div class="bloque">
-                <a href="/ubicanos"> 
-            <h4 style="color:#3276b9; text-align:center"> ¿Dónde estamos? </h4>
-        </div>
-        <div class="separador2">
-        </div>
-        
-        <div class="bloque">
-            <a href="/sobre_nosotros">
-            <h4 style="coloR:#eaebec; text-align:center"> ¿Quiénes somos? </h4>
-        </a>
-        </div>
-        
-        
-        <div id="footer">
-        	<div id="izqInfo">
-            	<center> <%= image_tag "Developeers.png", :width => "100" %> </center>
-            </div>
-            
-            <div id="derInfo">
-                <div id="publicidad1" style=" width:98%; height: 73px">
-                
-                
-                </div>
-                
-                <center>
-                    <p>©Todos los derechos reservados por La Cantera Futsal - 2013 <br />
-                    Diseño Web y programación realizada por Developeers</p>
-                </center>
-            </div>
-        
-        	
-    	</div>
-    </div>
+<!-- Escritos del Slidershow -->
+<div id="headertxt">
+  <p class="caption">
+    <span id="firstline"></span>
+    <a href="#" id="secondline"></a>
+  </p>
+  <p class="pictured">
+    <a href="#" id="pictureduri"></a>
+  </p>
 </div>
 
 <div id="myModal" class="modal hide fade">
@@ -160,14 +39,13 @@
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3><%= @modulo == 'reserva' ? "Reserva" : "Futbolada" %> Éxitosa</h3>
 	</div>
-	<div class="modal-body">
+	
+  <div class="modal-body">
 		<div id="confirmacion" style="color:#090">           
-            <center><h5 id="aviso">Entre en 'Mi Cuenta' (botón que se encuentra en la parte superior derecha de su pantalla) para ver su historial de <%= @modulo == 'reserva' ? "Reservaciones" : "Futboladas" %>
-                                                    </h5></center>
+      <center><h5 id="aviso">Entre en 'Mi Cuenta' (botón que se encuentra en la parte superior derecha de su pantalla) para ver su historial de <%= @modulo == 'reserva' ? "Reservaciones" : "Futboladas" %></h5></center>
 		</div>
 	</div>
-       <div class="modal-footer">
-       </div>
+  
+  <div class="modal-footer">
+  </div>
 </div>
-</body>
-</html>

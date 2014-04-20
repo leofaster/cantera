@@ -1,0 +1,55 @@
+<%= stylesheet_link_tag "jquery-ui-1.10.2.custom.css" %>
+
+<%= javascript_include_tag "jquery-1.9.1.js" %>
+<%= javascript_include_tag "jquery-ui-1.10.2.custom.js" %>
+<script>
+  $(function() {
+    $( "#accordion" ).accordion({
+      heightStyle: "content"
+    });
+  });
+</script>
+
+<div id="escrito" style="padding:0px 0px 0px 20px; text-align:justify">       
+  <legend><h1>Instalaciones</h1></legend>
+
+  <div>
+    <h3>Estandares y caldiad</h3>
+
+    <p>
+      <%= image_tag "imagen4.jpg", :style => "margin: 5px 0px 5px 5px;float: right;width:300px;height:140px;" %>
+      Muchos pueden pensar que las dimensiones y la calidad del terreno no son importantes. Pero en McDonalds Futsal sabemos que cada detalle hace la diferencia. Nuestra grama sintética son de la mejor calidad y de tecnología de ultima generación. Ofrecemos tres canchas de Futsal 5 con grama sintética aproaba por la FIFA.
+      
+      <br/><br/>
+
+      <%= image_tag "render.png", :width => "250px", :style => "margin: 5px 0px 5px 5px;float:right;" %>
+
+      Las dimensiones de nuestras canchas están diseñadas siguiendo estándares internacionales y de acuerdo a las recomendaciones de profesionales a nivel nacional internacional. Una vez que las pruebes, ¡no vas a querer dejar de jugar con nosotros!
+    </p>
+
+    <%= image_tag "imagen1.jpg", :width => "460px", :style => "margin: 5px 0px 5px 20px;" %>
+
+    <br/><br/>
+
+    <h3>Adaptabilidad y exclusividad</h3>
+
+    <p>
+        El Futsal es una excelente modalidad, pero a veces quieres lanzar un centro o mandar un pase al fondo y la cancha te queda pequeña. Por eso nuestras instalaciones se adaptan para ofrecer la modalidad Futbol 7. Somos el único complejo deportivo en el Estado Falcón que ofrece la posibilidad de llevar el futbol al siguiente nivel.
+    </p>
+
+    <%= image_tag "imagen2.jpg", :style => "height:150px;width:230px;margin: 5px 0px 5px 20px;" %>
+    <%= image_tag "render2.png", :style => "height:150px;width:230px;margin: 5px 0px 5px 0px;" %>
+
+    <br/><br/>
+
+    <h3>Academia, torneos y cumpleaños</h3>
+
+    <p>
+      <%= image_tag "IMG_7332.jpg", :style => "height:150px;width:230px;margin: 5px 0px 5px 5px;float:right;" %>
+      
+      El deporte y la recreación son actividades para toda la familia. Por eso en nuestras instalaciones no solo podrás jugar un partida semanal, sino que además puedes inscribirte en la academia de futbol del Unión Atlético Falcón, participar en nuestros torneos femeninos o masculinos, y organizar tu cumpleaños. 
+    </p>
+
+    <%= image_tag "imagen.jpg", :style => "height:250px;width:460px;margin: 5px 0px 5px 20px;" %>
+  </div>
+</div>
